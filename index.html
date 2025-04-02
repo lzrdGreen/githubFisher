@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Keyword Fisher</title>
+  <style>
+    body { font-family: Tahoma, Arial, sans-serif; padding: 20px; }
+    h1 { 
+      color: #1f78b4;
+      text-align: center;
+    }
+    input { padding: 12px; margin-right: 10px; width: 200px; }
+    button { padding: 12px; }
+    #error { color: #e31a1c; }
+    img { border-radius: 50%; width: 100px; }
+    footer {
+      background-color: #1f78b4;
+      height: 75px;
+      padding: 10px;
+    }
+    footer p {
+        font-size: 20px;
+        font-family: Tahoma, Arial, sans-serif;
+        color: #fff;
+        text-align: center;
+        margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>GitHub README Keyword Search</h1>
+  <input id="username" type="text" placeholder="Enter GitHub username">
+  <input id="keyword" type="text" placeholder="Enter keyword (optional)">
+  <button id="search">Search</button>
+  <p id="error"></p>
+  <div id="user-info"></div>
+  
+
+  <script>
+    async function searchGitHubRepositories(username, keyword) {
+      const url = `/api/github-search?username=${encodeURIComponent(username)}&keyword=${encodeURIComponent(keyword)}`;
+      
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Error fetching data");
+        
+        return (await response.json()).items;
+      } catch (error) {
+        console.error("Search error:", error);
+        return [];
+      }
+    }
+    
+
+    async function searchGitHubRepositories(username, keyword) {
+      const headers = { "Authorization": `token ${GITHUB_TOKEN}` };
+      const query = `user:${username} ${keyword} in:readme`;
+      const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}`;
+      
+      try {
+        const response = await fetch(url, { headers });
+        if (!response.ok) throw new Error("Error fetching data");
+        
+        return (await response.json()).items;
+      } catch (error) {
+        console.error("Search error:", error);
+        return [];
+      }
+    }
+
+    document.getElementById("search").addEventListener("click", async () => {
+      const username = document.getElementById("username").value.trim();
+      const keyword = document.getElementById("keyword").value.trim().toLowerCase();
+      const errorElement = document.getElementById("error");
+      const userInfo = document.getElementById("user-info");
+      
+      errorElement.textContent = "";
+      userInfo.innerHTML = "";
+      
+      if (!username) {
+        errorElement.textContent = "Please enter a username";
+        return;
+      }
+      
+      try {
+        const headers = { "Authorization": `token ${GITHUB_TOKEN}` };
+        const userResponse = await fetch(`https://api.github.com/users/${username}`, { headers });
+        if (!userResponse.ok) throw new Error("User not found");
+        const userData = await userResponse.json();
+        
+        const repoResults = await searchGitHubRepositories(username, keyword);
+        const repoList = repoResults.map(repo => `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`).join('');
+        
+        userInfo.innerHTML = `
+          <img src="${userData.avatar_url}" alt="Profile">
+          <h2>${userData.name || "No name provided"}</h2>
+          <p>${userData.bio || "No bio available"}</p>
+          <h3>Repositories:</h3>
+          <ul>${repoList}</ul>
+          <p>Advice: Use Ctrl+F (or Cmd+F on Mac) on the repository's README page to find the keyword within the context of the README page.</p>
+                `;
+            }
+        
+       catch (error) {
+        errorElement.textContent = error.message;
+      }
+    });
+  </script>
+  <footer>       
+    <p>&copy;2025 <a href="https://parshakov.com" style="color: white; text-decoration: none;">Oleksandr Parshakov</a></p>
+    <p>Dream it. Build it.</p>
+  </footer>
+</body>
+</html>
