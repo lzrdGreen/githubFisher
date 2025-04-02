@@ -39,7 +39,7 @@
 
   <script>
     async function searchGitHubRepositories(username, keyword) {
-      const url = `/api/github-search?username=${encodeURIComponent(username)}&keyword=${encodeURIComponent(keyword)}`;
+      const url = `https://github-search.alexander-parshakov.workers.dev/?username=${encodeURIComponent(username)}&keyword=${encodeURIComponent(keyword)}`;
       
       try {
         const response = await fetch(url);
@@ -51,23 +51,7 @@
         return [];
       }
     }
-    
-
-    async function searchGitHubRepositories(username, keyword) {
-      const url = `/api/github-search?username=${encodeURIComponent(username)}&keyword=${encodeURIComponent(keyword)}`;
-      
-      try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("Error fetching data");
-        
-        return (await response.json()).items;
-      } catch (error) {
-        console.error("Search error:", error);
-        return [];
-      }
-    }
-    
-
+  
     document.getElementById("search").addEventListener("click", async () => {
       const username = document.getElementById("username").value.trim();
       const keyword = document.getElementById("keyword").value.trim().toLowerCase();
@@ -83,8 +67,7 @@
       }
       
       try {
-        const headers = { "Authorization": `token ${GITHUB_TOKEN}` };
-        const userResponse = await fetch(`https://api.github.com/users/${username}`, { headers });
+        const userResponse = await fetch(`https://api.github.com/users/${username}`);
         if (!userResponse.ok) throw new Error("User not found");
         const userData = await userResponse.json();
         
@@ -98,14 +81,12 @@
           <h3>Repositories:</h3>
           <ul>${repoList}</ul>
           <p>Advice: Use Ctrl+F (or Cmd+F on Mac) on the repository's README page to find the keyword within the context of the README page.</p>
-                `;
-            }
-        
-       catch (error) {
+        `;
+      } catch (error) {
         errorElement.textContent = error.message;
       }
     });
-  </script>
+  </script>  
   <footer>       
     <p>&copy;2025 <a href="https://parshakov.com" style="color: white; text-decoration: none;">Oleksandr Parshakov</a></p>
     <p>Dream it. Build it.</p>
