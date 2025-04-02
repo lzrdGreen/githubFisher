@@ -54,12 +54,10 @@
     
 
     async function searchGitHubRepositories(username, keyword) {
-      const headers = { "Authorization": `token ${GITHUB_TOKEN}` };
-      const query = `user:${username} ${keyword} in:readme`;
-      const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}`;
+      const url = `/api/github-search?username=${encodeURIComponent(username)}&keyword=${encodeURIComponent(keyword)}`;
       
       try {
-        const response = await fetch(url, { headers });
+        const response = await fetch(url);
         if (!response.ok) throw new Error("Error fetching data");
         
         return (await response.json()).items;
@@ -68,6 +66,7 @@
         return [];
       }
     }
+    
 
     document.getElementById("search").addEventListener("click", async () => {
       const username = document.getElementById("username").value.trim();
