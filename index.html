@@ -48,17 +48,17 @@
   
 
   <script>
-    async function searchGitHubRepositories(username, keyword) {
+    async function fetchGitHubData(username, keyword) {
       const url = `https://github-search.alexander-parshakov.workers.dev/?username=${encodeURIComponent(username)}&keyword=${encodeURIComponent(keyword)}`;
-      
+  
       try {
         const response = await fetch(url);
         if (!response.ok) throw new Error("Error fetching data");
-        
-        return (await response.json()).items;
+  
+        return await response.json();
       } catch (error) {
-        console.error("Search error:", error);
-        return [];
+        console.error("Fetch error:", error);
+        return { error: error.message };
       }
     }
   
@@ -67,36 +67,39 @@
       const keyword = document.getElementById("keyword").value.trim().toLowerCase();
       const errorElement = document.getElementById("error");
       const userInfo = document.getElementById("user-info");
-      
+  
       errorElement.textContent = "";
       userInfo.innerHTML = "";
-      
+  
       if (!username) {
         errorElement.textContent = "Please enter a username";
         return;
       }
-      
-      try {
-        const userResponse = await fetch(`https://api.github.com/users/${username}`);
-        if (!userResponse.ok) throw new Error("User not found");
-        const userData = await userResponse.json();
-        
-        const repoResults = await searchGitHubRepositories(username, keyword);
-        const repoList = repoResults.map(repo => `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`).join('');
-        
-        userInfo.innerHTML = `
-          <img src="${userData.avatar_url}" alt="Profile">
-          <h2>${userData.name || "No name provided"}</h2>
-          <p>${userData.bio || "No bio available"}</p>
-          <h3>Repositories:</h3>
-          <ul>${repoList}</ul>
-          <p>Hint: Use Ctrl+F (or Cmd+F on Mac) on the repository's README page to find the keyword within the context of the README page.</p>
-        `;
-      } catch (error) {
-        errorElement.textContent = error.message;
+  
+      const data = await fetchGitHubData(username, keyword);
+  
+      if (data.error) {
+        errorElement.textContent = data.error;
+        return;
       }
+  
+      const user = data.user;
+      const repos = data.repositories || [];
+  
+      const repoList = repos.length > 0
+        ? repos.map(repo => `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`).join('')
+        : "<p>No repositories found matching the keyword.</p>";
+  
+      userInfo.innerHTML = `
+        <img src="${user.avatar_url}" alt="Profile">
+        <h2><a href="${user.profile_url}" target="_blank">${user.name || "No name provided"}</a></h2>
+        <p>${user.bio || "No bio available"}</p>
+        <h3>Repositories:</h3>
+        <ul>${repoList}</ul>
+        <p>Hint: Open a repository and use Ctrl+F (or Cmd+F on Mac) to find the keyword inside the README.</p>
+      `;
     });
-  </script>  
+  </script>
   <footer>       
     <p>&copy;2025 <a href="https://parshakov.com" style="color: white; text-decoration: none;">Oleksandr Parshakov</a></p>
     <p>Dream it. Build it.</p>
