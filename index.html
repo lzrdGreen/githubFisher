@@ -10,6 +10,9 @@
       color: #1f78b4;
       text-align: center;
     }
+    h3 { 
+      color: #1f78b4;
+    }
     input { padding: 12px; margin-right: 10px; width: 200px; }
     
     button {
@@ -45,7 +48,26 @@
   <button id="search">Search</button>
   <p id="error"></p>
   <div id="user-info"></div>
+  <hr style="border: 1px solid #1f78b4;">
   
+  <h3>Overview</h3>
+  <p>A tool for <strong>recruiters, HR professionals, and talent acquisition specialists </strong>to quickly assess developer skills by searching GitHub READMEs for specific keywords. Find relevant repositories instantly by entering a GitHub username and keyword.</p>
+  <h3>Purpose</h3>
+  <ul>
+    <li><p>Efficiently identify technical skills and project experience</p></li>
+    <li><p>Verify if a candidate's GitHub activity matches your requirements</p></li>
+    <li><p>Save time during the talent screening process</p></li>
+  </ul>
+
+  <h3>Usage Limitation</h3>
+  <p>This demonstration has GitHub API rate limits (5,000 requests per hour). When this limit is reached, the tool will pause until the next hour.</p>
+  <h3>Self-Hosting Option</h3>
+  <p>For dedicated use without sharing the demo's rate limit, you can run this tool locally:</p>
+  <ul>
+      <li><p>The full open-source project is available at: <a href="https://github.com/lzrdGreen/GitHub-README-Keyword-Search">https://github.com/lzrdGreen/GitHub-README-Keyword-Search</a></p></li>
+      <li><p>Follow the <strong>README instructions </strong>to set it up with your <strong>own GitHub API token</strong> </p></li>
+      <li><p>Running it locally ensures your searches use your personal API rate limit, freeing you from reliance on the shared demo limit.</p></li>
+  </ul>
 
   <script>
     async function fetchGitHubData(username, keyword) {
