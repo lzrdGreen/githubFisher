@@ -1,4 +1,54 @@
-body { font-family: Tahoma, Arial, sans-serif; padding: 20px; }
+
+body {
+    font-family: Tahoma, Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 10px;
+    background-color: #ffffff;
+    color: #111122;
+  }
+
+  header {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  header h1 {
+    font-size: 2.5em;
+    color: #1f78b4;
+    margin: 0;
+  }
+
+  nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  nav li {
+    margin: 0 15px;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: #1f78b4;
+    font-size: 1em;
+  }
+
+  nav a:hover {
+    text-decoration: underline;
+  }
+
+  main {
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+  }
     h1 { 
       color: #1f78b4;
       text-align: center;
