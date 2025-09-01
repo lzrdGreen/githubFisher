@@ -27,10 +27,27 @@
     }
     #error { color: #e31a1c; }
     img { border-radius: 50%; width: 100px; }
+    
+    aside {
+      width: 30%;
+      padding-left: 15px;
+      margin-left: 15px;
+      float: right;
+      font-family: Tahoma, Arial, sans-serif;
+      background-color: #1f78b4;
+  }
+    aside h1 {
+        font-size: 40px;
+        font-family: Tahoma, Arial, sans-serif;
+        color: #e6f598;
+        text-align: center;
+        margin: 10px;
+    }
+
     footer {
       background-color: #1f78b4;
       height: 75px;
-      padding: 10px;
+      padding: 10px; 
     }
     footer p {
         font-size: 20px;
@@ -42,6 +59,7 @@
   </style>
 </head>
 <body>
+  <hr style="border: 1px solid #1f78b4;">
   <h1>GitHub README Keyword Search</h1>
   <input id="username" type="text" placeholder="Enter GitHub username">
   <input id="keyword" type="text" placeholder="Enter keyword (optional)">
@@ -49,7 +67,11 @@
   <p id="error"></p>
   <div id="user-info"></div>
   <hr style="border: 1px solid #1f78b4;">
-  
+  <a href="project-management.html">
+  <aside>
+    <h1>Project Management Home Page</h1>
+  </aside>
+  </a>
   <h3>Overview</h3>
   <p>A tool for <strong>recruiters, HR professionals, and talent acquisition specialists </strong>to quickly assess developer skills by searching GitHub READMEs for specific keywords. Find relevant repositories instantly by entering a GitHub username and keyword.</p>
   <h3>Purpose</h3>
@@ -123,7 +145,7 @@
     });
   </script>
   <footer>       
-    <p>&copy;2025 <a href="https://parshakov.com" style="color: white; text-decoration: none;">Oleksandr Parshakov</a></p>
+    <p>&copy;2025 <a href="https://www.linkedin.com/in/alexander-parshakov/" style="color: white; text-decoration: none;">Oleksandr Parshakov</a></p>
     <p>Dream it. Build it.</p>
   </footer>
 </body>

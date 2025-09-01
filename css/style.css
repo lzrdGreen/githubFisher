@@ -1,0 +1,32 @@
+body { font-family: Tahoma, Arial, sans-serif; padding: 20px; }
+    h1 { 
+      color: #1f78b4;
+      text-align: center;
+    }
+    h3 { 
+      color: #1f78b4;
+    }
+    
+    button {
+      background-color: #d1e5f0;
+      border: 2px solid #2166ac;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 3px;
+    }
+    button:hover {
+        opacity: 0.7;
+    }
+
+    footer {
+      background-color: #1f78b4;
+      height: 75px;
+      padding: 10px; 
+    }
+    footer p {
+        font-size: 20px;
+        font-family: Tahoma, Arial, sans-serif;
+        color: #fff;
+        text-align: center;
+        margin: 10px;
+    }
