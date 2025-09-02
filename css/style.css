@@ -56,6 +56,15 @@ body {
     h3 { 
       color: #1f78b4;
     }
+
+    aside {
+        width: 30%;
+        padding-left: 5px;
+        margin-left: 5px;
+        float: right;
+        font-family: Tahoma, Arial, sans-serif;
+        background-color: #d1e5f0;
+    }
     
     button {
       background-color: #d1e5f0;
