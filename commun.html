@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication Plan</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        @media (max-width: 1023px) {
+            div.table-wrapper {
+                overflow-x: auto;
+                overflow-y: auto;
+                max-height: 90vh;
+            }
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid #d1e5f0;
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:hover {background-color: #e8f2f8;}
+        
+        th {    
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            color: #2166ac;
+            background-color: white;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .tag-weekly {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .tag-biweekly {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .tag-monthly {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .tag-onetime {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .tag-asneeded {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+        
+        .tag-email {
+            background: #e0f2f1;
+            color: #00796b;
+            margin: 3px 3px 3px 0;
+            display: inline-block;
+        }
+        
+        .tag-meeting {
+            background: #fbe9e7;
+            color: #d84315;
+            margin: 3px 3px 3px 0;
+            display: inline-block;
+        }
+        
+        .tag-presentation {
+            background: #f1f8e9;
+            color: #558b2f;
+            margin: 3px 3px 3px 0;
+            display: inline-block;
+        }
+        
+        .key-date {
+            color: #d73027;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <h1>Oleksandr Parshakov</h1>
+    <nav>
+      <ul>        
+        <li><a href="project-management.html">Home</a></li>
+        <li><a href="artifacts.html">Artifacts</a></li>
+        <li><a href="toolbox.html">Toolbox</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Sauce & Spoon Communication Plan (2026)</h1>
+    <p style="text-align: center;">Document Status: Draft | <mark style="background-color: #d1e5f0;">In Review</mark> | Approved</p>
+    <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 12%;">Recipient(s)</th>
+                        <th style="width: 10%;">Type of Communication</th>
+                        <th style="width: 12%;">Frequency</th>
+                        <th style="width: 10%;">Sender/Owner</th>
+                        <th style="width: 12%;">Delivery Method</th>
+                        <th style="width: 18%;">Goal</th>
+                        <th style="width: 16%;">Key Dates / Notes</th>
+                        <th style="width: 10%;">Action Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Project Sponsor</strong> (Omar Mubarak)</td>
+                        <td>Project Charter Approval</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td>Peta (PM)</td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Finalise and Approve Project Charter (Signals official initiation)</td>
+                        <td><span class="key-date">06 April</span></td>
+                        <td>Approval</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Project Sponsor</strong> (Omar Mubarak)</td>
+                        <td>Executive Status Report</td>
+                        <td><span class="tag tag-biweekly">Bi-weekly</span></td>
+                        <td>Peta (PM)</td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Keep sponsor informed of project progress, risks, budget status, and decision points</td>
+                        <td>Starting 16 April, every second Thursday. The final report before launch (May 28th) will contain the Soft Launch Go/No-Go Recommendation</td>
+                        <td>Approval / FYI</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Steering Committee</strong> (Omar Mubarak, Deanna Coleman, Peta Tsosie)</td>
+                        <td>Strategic Review Meeting</td>
+                        <td><span class="tag tag-monthly">Monthly</span></td>
+                        <td>Peta (PM)</td>
+                        <td><span class="tag tag-meeting">In-person/Video</span></td>
+                        <td>Review project health, address strategic issues, approve major decisions</td>
+                        <td><span class="key-date">Mid-Apr, Mid-May</span><br><span class="key-date">13 Jun: </span>Review currently available performance data if project termination/suspension is justified</td>
+                        <td>Approval / Decision</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Core Project Team</strong> (Managers, IT, Consultant)</td>
+                        <td>Weekly Status Meeting</td>
+                        <td><span class="tag tag-weekly">Weekly</span></td>
+                        <td>Peta (PM)</td>
+                        <td><span class="tag tag-meeting">In-person/Video</span></td>
+                        <td>Coordinate work, identify blockers, track deliverables, manage dependencies</td>
+                        <td>Mondays, 10am (13 weeks)</td>
+                        <td>Action Required</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Director of Operations </strong>(Deanna Coleman)</td>
+                        <td>Operational Readiness Check-Ins</td>
+                        <td><span class="tag tag-monthly">Monthly</span></td>
+                        <td>Peta (PM)</td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Ensure alignment between restaurant operations and tech adoption</td>
+                        <td>Starting 16 April, every fourth Thursday</td>
+                        <td>FYI / Action Required</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Restaurant Managers</strong> (Gilly Tyson, Alex Schmidt)</td>
+                        <td>Implementation Planning Sessions</td>
+                        <td><span class="tag tag-biweekly">Bi-weekly</span></td>
+                        <td>Peta (PM)</td>
+                        <td><span class="tag tag-meeting">In-person</span></td>
+                        <td>Align on local rollout logistics, staffing, timeline, customer messaging</td>
+                        <td>13 weeks</td>
+                        <td>Action Required</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Executive Chef </strong>(Carter Ward)</td>
+                        <td>BOH Readiness Check-Ins</td>
+                        <td><span class="tag tag-monthly">Monthly</span></td>
+                        <td>Peta (PM)</td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Track waste reduction progress and BOH operational alignment with FOH system</td>
+                        <td>13 week</td>
+                        <td>FYI / Action Required</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Restaurant Managers</strong> </td>
+                        <td>BOH-FOH Operational Alignment</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td>Executive Chef</td>
+                        <td><span class="tag tag-meeting">In-person</span></td>
+                        <td>Finalise BOH protocols for new order flow and waste tracking to align with FOH tablet system</td>
+                        <td><span class="key-date">By 20 May</span></td>
+                        <td>Action Required</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>HR Department</strong></td>
+                        <td>Training Curriculum Review & Approval</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td>Vendor / Restaurant Managers / Peta (PM)</td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Obtain formal sign-off on final training materials and curriculum, ensuring operational alignment and HR policy compliance</td>
+                        <td><span class="key-date">By 19 May</span></td>
+                        <td>Action Required</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>FOH Staff</strong> (North & Downtown)</td>
+                        <td>Training Program & Materials</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td>Restaurant Managers/ Peta(PM)</td>
+                        <td><span class="tag tag-meeting">In-person</span><span class="tag tag-presentation">Workshop</span></td>
+                        <td>Equip staff with tablet system skills, reduce resistance, ensure 100% adoption</td>
+                        <td><span class="key-date">By 26 May</span> | Multiple sessions per location</td>
+                        <td>Action Required</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Peta (PM) & HR Department </strong></td>
+                        <td>Staff Engagement Briefings</td>
+                        <td><span class="tag tag-biweekly">Bi-weekly</span></td>
+                        <td>Restaurant Managers</td>
+                        <td><span class="tag tag-meeting">In-person</span></td>
+                        <td>Reinforce wins, capture pain points, and motivate adoption</td>
+                        <td>Throughout pilot</td>
+                        <td>Action Required</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>FOH Staff</strong> (North & Downtown)</td>
+                        <td>Ongoing Support & Troubleshooting</td>
+                        <td><span class="tag tag-asneeded">As needed</span></td>
+                        <td>IT / Technical Partner</td>
+                        <td><span class="tag tag-email">Email</span><span class="tag tag-meeting">In-person</span></td>
+                        <td>Resolve technical issues, answer questions, reduce staff burnout during transition</td>
+                        <td>Throughout pilot</td>
+                        <td>Action Required</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Peta (PM)</strong></td>
+                        <td>Signage/Table Tent Readiness Sign-Off</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td>Marketing Lead</td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Confirm all physical signage and table tents are approved, printed, and ready for deployment</td>
+                        <td><span class="key-date">By 08 May</span></td>
+                        <td>Approval / FYI</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Peta (PM)</strong></td>
+                        <td>Website/Online Readiness Sign-Off</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td>Marketing Lead / IT Lead </td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Confirm that the website and online ordering system updates are technically functional (IT Lead sign-off) and that all content and design are approved (Marketing Lead sign-off)</td>
+                        <td><span class="key-date">By 19 May</span></td>
+                        <td>Approval / FYI</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Customers</strong> (Bar area guests)</td>
+                        <td>Marketing & Communication Materials</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td>Marketing / Peta</td>
+                        <td><span class="tag tag-presentation">Signage</span><span class="tag tag-email">Website</span></td>
+                        <td>Educate guests on new ordering option, increase adoption, gather feedback</td>
+                        <td><span class="key-date">By 20 May</span></td>
+                        <td>FYI</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Legal Team</strong></td>
+                        <td>Compliance Review & Sign-off</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td> Peta(PM) / IT Lead</td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Review and sign-off on vendor contract details (warranties, support, licensing) to finalise agreement</td>
+                        <td><span class="key-date">By 17 April</span></td>
+                        <td>Approval</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Finance & Procurement</strong></td>
+                        <td>Hardware Order Pre-Authorisation Notice</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td> Peta(PM)</td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Notify Finance that the ≈$30,000 hardware order is going to be placed, committing project funds and signaling pending invoice</td>
+                        <td><span class="key-date">By 22 April</span></td>
+                        <td>FYI / Action Required</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>IT / Technical Support & Peta (PM)</strong></td>
+                        <td>Implementation Report</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td>Vendor / Technical Partner</td>
+                        <td><span class="tag tag-meeting">Video call</span><span class="tag tag-email">Report</span></td>
+                        <td>Install tablets, resolve issues, provide technical training to Restaurant Managers</td>
+                        <td><span class="key-date">By 06 May</span></td>
+                        <td>Action Required</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>IT / Technical Support & Peta (PM)</strong></td>
+                        <td>System Integration Completion Confirmation</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td>IT Lead + Consultant</td>
+                        <td><span class="tag tag-email">Email</span><span class="tag tag-meeting">Status meeting</span></td>
+                        <td>Ensure seamless integration with POS and host systems, verify functionality</td>
+                        <td><span class="key-date">By 06 May: Integration complete</span></td>
+                        <td>Action Required / FYI</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Peta (PM)</strong></td>
+                        <td>Final Technical Testing Completion</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td>IT Lead / Consultant</td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Obtain technical sign-off confirming that full system testing and bug resolution is complete</td>
+                        <td><span class="key-date">By 12 May</span></td>
+                        <td>Aproval</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Finance & Procurement</strong></td>
+                        <td>Budget & Vendor Management Updates</td>
+                        <td><span class="tag tag-monthly">Monthly</span></td>
+                        <td>Peta (PM)</td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Track spending, manage invoices, ensure budget compliance ($53,050-$55,550)</td>
+                        <td>Throughout pilot</td>
+                        <td>FYI / Action Required</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>HR Department</strong></td>
+                        <td>Staff Readiness & Turnover Monitoring</td>
+                        <td><span class="tag tag-monthly">Monthly</span></td>
+                        <td>Peta (PM) + Restaurant Managers</td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Monitor employee engagement, address burnout concerns, track turnover metrics</td>
+                        <td>Throughout pilot | Goal: Reduce turnover</td>
+                        <td>Action Required</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>All Stakeholders</strong></td>
+                        <td>Project Kickoff Meeting</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td>Peta (PM) + Omar</td>
+                        <td><span class="tag tag-meeting">In-person/Video</span></td>
+                        <td>Align on goals, roles, timeline, communicate project charter to all parties</td>
+                        <td><span class="key-date">April 13, 2026</span></td>
+                        <td>FYI / Action Required</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Restaurant Managers & Finance</strong></td>
+                        <td>Metrics & Performance Tracking Reports</td>
+                        <td><span class="tag tag-weekly">Weekly</span></td>
+                        <td>Peta (PM)</td>
+                        <td><span class="tag tag-email">Email</span></td>
+                        <td>Track KPIs (table turn, guest counts, check totals, waste, upsells), inform decision-making</td>
+                        <td>Throughout pilot | Data collected for final report</td>
+                        <td>Action Required / FYI</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>All Stakeholders</strong></td>
+                        <td>Final Evaluation Report & Presentation</td>
+                        <td><span class="tag tag-onetime">One-time</span></td>
+                        <td>Peta (PM)</td>
+                        <td><span class="tag tag-presentation">Presentation</span><span class="tag tag-email">Report</span></td>
+                        <td>Present pilot data, ROI, and lessons learned. Includes Sponsor sign-off and Steering Committee recommendations for full-scale rollout</td>
+                        <td><span class="key-date">By 02 July</span></td>
+                        <td>Approval / FYI</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="notes-section">
+            <h3>Key Communication Principles & Notes</h3>
+            <ul>
+                <li><strong>Escalation Path:</strong> Issues flow from Project Manager → Steering Committee → Project Sponsor as needed</li>
+                <li><strong>Documentation:</strong> All meeting minutes and decisions logged  and stored in the shared project folder, with the link distributed via email within 24 hours of meetings</li>
+                <li><strong>Transparency:</strong> Weekly metrics dashboard shared with Restaurant Managers and IT to maintain visibility on progress toward Q2 goals</li>
+                <li><strong>Staff Engagement:</strong> FOH staff communications emphasise benefits (less manual work, clearer orders) to reduce resistance to technology adoption</li>
+                <li><strong>Risk Communication:</strong> Any delays impacting the <span class="key-date">06 May integration deadline</span> or <span class="key-date">26 May training deadline</span> escalated immediately to Sponsor</li>
+                <li><strong>Issue Reporting: </strong>Operational and technical issues encountered during Implementation, Testing, and the Pilot will be reported via a dedicated Slack channel</li>
+                <li><strong>Response SLA: </strong>All recipients must acknowledge and provide required decisions for communications within 48 hours to maintain project momentum. (This includes responses on risks, budget approvals, and decision points)</li>
+                <li><strong>Feedback Loops:</strong> Customer feedback collected during pilot; shared weekly with management to address adoption issues early - Marketing Lead compiles weekly guest feedback summaries for PM and Managers</li>
+                <li><strong>Success Metrics Communication:</strong> Monthly updates to stakeholders highlight progress toward the three CSFs (business performance, adoption by staff and customers, quality data for further rollout decision)</li>
+            </ul>
+        </div>
+    
+  </main>
+<footer>       
+    <p>&copy;2025 <a href="https://www.linkedin.com/in/alexander-parshakov/" style="color: white; text-decoration: none;">Oleksandr Parshakov</a></p>
+    <p>Dream it. Build it.</p>
+  </footer>
+</body>
+</html>    
