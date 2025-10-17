@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Management Plan</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        @media (max-width: 1023px) {
+            div.table-wrapper {
+                overflow-x: auto;
+                overflow-y: auto;
+                max-height: 90vh;
+            }
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid #d1e5f0;
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:hover {background-color: #e8f2f8;}
+    </style>
+</head>
+<body>
+    <header>
+    <h1>Oleksandr Parshakov</h1>
+    <nav>
+      <ul>        
+        <li><a href="project-management.html">Home</a></li>
+        <li><a href="artifacts.html">Artifacts</a></li>
+        <li><a href="toolbox.html">Toolbox</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Sauce & Spoon Risk Management Plan (2026)</h1>
+    <h3>Objective</h3>
+    <p>The objective of this document is to define and analyse the major risks to the Sauce & Spoon Tablet Rollout Pilot and establish the necessary plans to mitigate their potential negative impact on the project's budget, schedule, and success criteria.</p>
+
+    <h3>Executive Summary</h3>
+    <p>Sauce & Spoon is launching the <strong>Tablet Rollout Pilot Project</strong> in the bar areas of its North and Downtown locations over a 13-week period. The pilot aims to enhance operational efficiency by reducing wait times, increasing table turnover, and boosting average check totals through the integration of guest-facing ordering tablets with existing POS and host systems.</p>
+    <p>This Risk Management Plan identifies and assesses the key risks that could impact the project’s success, focusing on three primary categories: <strong>budget, schedule,</strong> and <strong>operational/ adoption</strong> risks. The following tables outline these risks in detail, along with mitigation strategies designed to minimise their likelihood and potential impact.</p>
+
+    <p><strong>RISK TYPE ONE:</strong> You are at risk of going over budget</p>
+    <h4>BUDGET RISKS</h4>
+    <div class="table-wrapper" style="margin-bottom: 30px; border-radius: 1px; overflow: hidden; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);">
+            <table style="font-size: 0.9rem;">
+                <thead>
+                    <tr>
+                        <th style="width: 25%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Description</th>
+                        <th style="width: 10%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Impact</th>
+                        <th style="width: 10%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Probability</th>
+                        <th style="width: 55%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Root Cause</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Customisation/Vendor Scope Creep</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td style="color: #66bd63; font-weight: bold;">Low</td>
+                        <td>Underestimated installation/customisation needs; requests for new features (e.g., specific coupon promotion functionality) that rapidly exceed the small <strong>$550 customisation budget</strong>.</td>
+                    </tr>
+                    <tr>
+                        <td>Hardware Failure or Inadequate Quantity</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td style="color: #66bd63; font-weight: bold;">Low</td>
+                        <td>Bar environment (spills, damage, theft) or initial quantity calculation based on average vs. peak demand requirements leads to replacement costs.</td>
+                    </tr>
+                    <tr>
+                        <td>Hidden Integration Costs</td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                        <td>POS integration requires additional third-party API licensing, unforeseen technical support hours, or fees not captured in the initial vendor quote.</td>
+                    </tr>
+                    <tr>
+                        <td>Extended Vendor Support Requirements</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td>Maintenance budget ($5,000) is consumed by system crashes during peak service or integration bugs requiring immediate vendor escalation.</td>
+                    </tr>
+                    <tr>
+                        <td>Training Cost Escalation</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td>High staff turnover during the pilot/training phase forces continuous, expensive retraining efforts, exceeding the $10,000 budget. Staff churn is already 50% - even in a short pilot, retraining costs can escalate quickly</td>
+                    </tr>
+                    <tr>
+                        <td>Contingency Fund Insufficiency</td>
+                        <td style="color: #66bd63; font-weight: bold;">Low</td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                        <td>Multiple small overruns accumulate across budget line items due to the small 5-10% contingency allocation.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    <p><strong>RISK TYPE TWO:</strong> You are at risk of falling behind schedule</p>
+    <h4>SCHEDULE RISKS</h4>
+    <div class="table-wrapper" style="margin-bottom: 30px; border-radius: 1px; overflow: hidden; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);">
+            <table style="font-size: 0.9rem;">
+                <thead>
+                    <tr>
+                        <th style="width: 25%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Description</th>
+                        <th style="width: 10%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Impact</th>
+                        <th style="width: 10%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Probability</th>
+                        <th style="width: 55%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Root Cause</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>POS/Host System Integration Delays</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                        <td>Complexity of syncing new tablets with existing legacy POS/host systems; potential for undocumented limitations or vendor coordination issues. Integration nearly always introduces unexpected delays</td>
+                    </tr>
+                    <tr>
+                        <td>Compressed Staff Training Window</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td>Extremely tight 1-week window (May 20-26) combined with existing high FOH staff turnover, scheduling conflicts, and need to train across all shifts/locations.</td>
+                    </tr>
+                    <tr>
+                        <td>Concurrent Two-Location Rollout Complexity</td>
+                        <td style="color: #66bd63; font-weight: bold;">Low</td>
+                        <td style="color: #66bd63; font-weight: bold;">Low</td>
+                        <td>Managing two separate physical sites, two General Managers (Gilly/Alex), and different potential location-specific technical issues simultaneously.</td>
+                    </tr>
+                    <tr>
+                        <td>Late Hardware Delivery</td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                        <td style="color: #66bd63; font-weight: bold;">Low</td>
+                        <td>Supply chain delays, customs holds on imported tablets, or internal procurement issues.</td>
+                    </tr>
+                    <tr>
+                        <td>Pilot Site Physical Installation Delays</td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                        <td style="color: #66bd63; font-weight: bold;">Low</td>
+                        <td>Physical environment factors (bar layout differences, electrical setup, network constraints) or unforeseen site issues.</td>
+                    </tr>
+                    <tr>
+                        <td>Testing and Feedback Overruns</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td>Extended troubleshooting requirements, scope creep from required fixes, or lengthy stakeholder feedback/approval cycles post-launch.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    <p><strong>RISK TYPE THREE:</strong> You are at risk of staff or customers not embracing the new tablet system, which could reduce its use, cause service issues, and prevent the project from delivering its goals.</p>
+    <h4>OPERATIONAL / ADOPTION RISKS</h4>
+    <div class="table-wrapper" style="margin-bottom: 30px; border-radius: 1px; overflow: hidden; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);">
+            <table style="font-size: 0.9rem;">
+                <thead>
+                    <tr>
+                        <th style="width: 25%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Description</th>
+                        <th style="width: 10%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Impact</th>
+                        <th style="width: 10%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Probability</th>
+                        <th style="width: 55%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Root Cause</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>FOH Staff Technology Resistance and Adoption Failure</td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td>Staff perceiving tablets as an added burden or job threat given existing burnout, leading to intentional workarounds or refusal to promote tablet use.</td>
+                    </tr>
+                    <tr>
+                        <td>High Staff Turnover Invalidating Training</td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                        <td>Existing 50% FOH staff attrition continues or increases during the pilot, forcing unbudgeted, continuous retraining efforts that drain time and resources.</td>
+                    </tr>
+                    <tr>
+                        <td>Tablet System Downtime or Reliability Failure</td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td>Unexpected technical failure (Wi-Fi drop, software bug, POS synchronisation error) causes immediate lost orders, customer dissatisfaction, and staff panic.</td>
+                    </tr>
+                    <tr>
+                        <td>Customer Adoption Resistance</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td>Guests prefer human interaction or find the tablets impersonal/confusing, resulting in low tablet usage and failure to meet efficiency goals.</td>
+                    </tr>
+                    <tr>
+                        <td>Inaccurate or Incomplete Data Collection</td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                        <td style="color: #C79F00; font-weight: bold;">Medium</td>
+                        <td>System configuration errors, integration gaps, or inconsistent manual procedures invalidate the pilot data, preventing an informed decision on full rollout.</td>
+                    </tr>
+                    <tr>
+                        <td>Vendor Dependency and Single Point of Failure</td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                        <td style="color: #66bd63; font-weight: bold;">Low</td>
+                        <td>Heavy reliance on the sole tablet/POS provider for integration, support, and technology creates risk from vendor performance issues, financial instability, or contract disputes.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr style="border: 1px solid #1f78b4;">
+        <h3>Notes:</h3>
+        <h4>Probability Rating Scale</h4>
+        <table style="font-size: 0.9rem;">
+            <thead>
+                <tr>
+                    <th style="width: 10%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Risk to Project</th>
+                    <th style="width: 45%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Qualitative</th>
+                    <th style="width: 45%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Quantitative (if measurable)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="background-color: #66bd63; font-weight: bold;">Low</td>
+                    <td>Very low chance of risk occurring (Unlikely)</td>
+                    <td>Less than 10% chance of risk occurring</td>
+                </tr>
+                <tr>
+                    <td style="background-color: #C79F00; font-weight: bold;">Medium</td>
+                    <td>Medium chance of risk occurring (Possible)</td>
+                    <td>10%-49% chance of risk occurring</td>
+                </tr>
+                <tr>
+                    <td style="background-color: #d73027; font-weight: bold;">High</td>
+                    <td>High chance of risk occurring (Likely)</td>
+                    <td>50%-100% chance of risk occurring</td>
+                </tr>
+            </tbody>
+        </table>
+        <p><i>Source: Adapted from the <strong>Google Project Management Certificate Capstone Project</strong> materials</i>.</p>
+
+        <h4>Impact Rating Scale</h4>
+        <table style="font-size: 0.9rem;">
+            <thead>
+                <tr>
+                    <th style="width: 10%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Types of Impact</th>
+                    <th style="width: 30%; background-color: #66bd63; font-weight: bold; color: #1f2937;">Low</th>
+                    <th style="width: 30%; background-color: #C79F00; font-weight: bold; color: #1f2937;">Medium</th>
+                    <th style="width: 30%; background-color: #d73027; font-weight: bold; color: #1f2937;">High</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold;">Financial</td>
+                    <td>Low financial impact, costing the company $1-$14,999</td>
+                    <td>Medium financial impact, costing the company $15,000-$29,999</td>
+                    <td>High financial impact, costing the company $30,000 or more</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Operational</td>
+                    <td>Low impact to project operations, causing delays of a few (1-14) days</td>
+                    <td>Medium impact to project operations, with potential to delay project by 15 days or more</td>
+                    <td>High impact to project operations, with potential to cause project failure</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">People: Customer Experience</td>
+                    <td>Minor inconvenience. Acknowledged by customers but easily recovered (e.g., a 1-minute delay); negligible impact on reviews/ratings</td>
+                    <td>Noticeable dissatisfaction. Multiple service incidents; noticeable dip in customer satisfaction score (like 1-5 points); a few negative online reviews</td>
+                    <td>Significant damage to brand. Widespread, public dissatisfaction; major drop in customer satisfaction score (like 10 points); lost customers; negative local media mention</td>    
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">People: Workforce / Morale</td>
+                    <td>Minor/Isolated. Temporary dip in morale; staff complaints limited to a single FOH staff unit within one restaurant; easily resolved by local management. No measurable change in turnover rate</td>
+                    <td>Moderate/Widespread. Sustained drop in morale across multiple distinct staff groups; noticeable increase in staff grievances/absenteeism; Turnover rate increases by 5–10% of total FOH staff</td>
+                    <td>Severe/Systemic. Significant decline in company culture/reputation; loss of key staff/supervisors; Turnover rate increases by over 10% of total FOH staff, severely impacting service quality and training budget</td>    
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Technical / System</td>
+                    <td>System issues are isolated and quickly resolved; no data loss; less than 1 hour of system downtime in total during pilot</td>
+                    <td>System issues require vendor intervention or hotfixes; minor data integrity issues that require manual correction; 1 to 4 hours of system downtime affecting peak service</td>
+                    <td>System failure causes service-wide disruption; significant data loss/corruption invalidating results; more than 4 hours of system downtime or the failure of a critical core function</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Vendor / Third-Party</td>
+                    <td>Routine Support Required. A vendor-related issue resolved quickly and entirely via Tier 1 (Phone/Email/Chat or remote access) vendor support. The issue is resolved with less than 2 hours of customer/vendor communication</td>
+                    <td>Major Intervention. A vendor-related issue requiring Tier 2 technical support and an on-site technician to resolve. This requires significant management time to coordinate the visit/access, resulting in major distraction and project slowdown</td>
+                    <td>Critical vendor failure (e.g., bankruptcy, major contract default, or complete, sustained failure to provide remote support). This results in an immediate project stop or a need to seek a replacement system or over $10,000 in non-recoverable financial loss</td>
+                </tr>
+            </tbody>
+        </table>
+        <p><i>Source: Adapted from the <strong>Google Project Management Certificate Capstone Project</strong> materials</i>.</p>
+
+        <hr style="border: 1px solid #1f78b4;">
+        <h3>Summary of Critical Risks (Top 6 to Monitor Closely)</h3>
+        <p>The following risks are the highest priority (High Impact and/or High Probability) and will require the most immediate focus and resource allocation for mitigation.</p>
+        <div class="table-wrapper" style="margin-bottom: 30px; border-radius: 1px; overflow: hidden; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);">
+            <table style="font-size: 0.9rem;">
+                <thead>
+                    <tr>
+                        <th style="width: 5%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Rank</th>
+                        <th style="width: 50%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Critical Risk Description</th>
+                        <th style="width: 15%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Risk Type</th>
+                        <th style="width: 15%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Impact/Prob.</th>
+                        <th style="width: 15%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Risk Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: bold;">1</td>
+                        <td><strong>Hidden Integration Costs</strong>: Unforeseen API licensing or vendor fees on legacy POS systems.</td>
+                        <td>Budget</td>
+                        <td style="color: #d73027; font-weight: bold;">H/H</td>
+                        <td style="color: #d73027; font-weight: bold;">Critical</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">2</td>
+                        <td><strong>High Staff Turnover Invalidating Training</strong>: Existing staff attrition requires continuous, unbudgeted retraining.</td>
+                        <td>Operational/Adoption</td>
+                        <td style="color: #d73027; font-weight: bold;">H/H</td>
+                        <td style="color: #d73027; font-weight: bold;">Critical</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">3</td>
+                        <td><strong>Inaccurate or Incomplete Data Collection</strong>: System errors or inconsistent procedures invalidate pilot results.</td>
+                        <td>Operational/Adoption</td>
+                        <td style="color: #d73027; font-weight: bold;">H/<span style="color: #C79F00;">M</span></td>
+                        <td style="color: #d73027; font-weight: bold;">Critical</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">4</td>
+                        <td><strong>POS/Host System Integration Delays</strong>: Technical complexity of syncing with existing legacy systems.</td>
+                        <td>Schedule</td>
+                        <td style="color: #C79F00; font-weight: bold;">M/<span style="color: #d73027;">H</span></td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                    </tr>                    
+                    <tr>
+                        <td style="font-weight: bold;">5</td>
+                        <td><strong>Tablet System Downtime or Reliability Failure</strong>: Technical failure causing lost orders and staff panic during service.</td>
+                        <td>Operational/Adoption</td>
+                        <td style="color: #d73027; font-weight: bold;">H/<span style="color: #C79F00;">M</span></td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">6</td>
+                        <td><strong>FOH Staff Technology Resistance and Adoption Failure</strong>: Intentional workarounds or refusal to promote tablet use</td>
+                        <td>Operational/Adoption</td>
+                        <td style="color: #d73027; font-weight: bold;">H/<span style="color: #C79F00;">M</span></td>
+                        <td style="color: #d73027; font-weight: bold;">High</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    <h1>Risk Response / Mitigation Plan</h1>
+    <h3>BUDGET RISKS</h3>
+    <p>This section outlines the strategies to mitigate potential cost overruns, focusing first on the <b>Critical</b> and <b>High-Scored</b> risks.</p>
+    <div class="table-wrapper" style="margin-bottom: 30px; border-radius: 1px; overflow: hidden; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);">
+        <table style="font-size: 0.9rem;">
+            <thead>
+                <tr>
+                    <th style="width: 25%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Risk Description</th>
+                    <th style="width: 40%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Mitigation Actions</th>
+                    <th style="width: 35%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Specific Scenario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Hidden Integration Costs</strong></td>
+                    <td><strong>(CRITICAL RISK)</strong> <strong>Transfer &amp; Avoide &amp; Minimise.</strong> Transfer risk by negotiating a guaranteed cost cap on all integration and third-party API licensing fees with the vendor. Avoid hidden costs by obtaining a signed, fixed-cost statement that explicitly covers all required API keys, licenses, and unforeseen technical support hours, ensuring the scope is technically verified prior to contract execution.Minimise post-contract risk by holding a portion of the vendor payment in escrow until integration is fully complete.</td>
+                    <td><strong>Example:</strong> Technical Lead to obtain a <strong>signed, fixed-cost statement</strong> from the tablet vendor covering all API keys, licenses, and unforeseen integration fees before the end of <strong>Week 2</strong> (Vendor Contract Finalised). Hold <strong>$2,000</strong> of the vendor payment in escrow until integration is complete.</td>
+                </tr>
+                <tr>
+                    <td>Training Cost Escalation</td>
+                    <td><strong>(HIGH-SCORED RISK)</strong> <strong>Minimise.</strong> Develop standardised, reusable, digital training materials (e.g., short video tutorials and laminated quick-reference guides) that are easily accessible to new hires, reducing the dependency on expensive, repeated in-person training.</td>
+                    <td><strong>Example:</strong> Convert all core training into <strong>10-minute video modules</strong> hosted on the company internal site by the end of <strong>Week 7</strong>. Implement a <strong>"Train the Trainer"</strong> model to utilise GMs (Gilly and Alex) as low-cost trainers.</td>
+                </tr>
+                <tr>
+                    <td>Extended Vendor Support Requirements</td>
+                    <td><strong>(HIGH-SCORED RISK)</strong> <strong>Accept &amp; Minimise.</strong> Allocate a small, dedicated portion of the contingency fund specifically for vendor support call-out fees. Meanwhile, proactively build internal Tier 1 troubleshooting knowledge.</td>
+                    <td><strong>Example:</strong> Allocate <strong>$1,000</strong> of the contingency fund exclusively for support costs. Compile a <strong>Tier 1 Troubleshooting Guide</strong> for FOH staff and GMs (reboot procedures, common error codes) by the end of <strong>Week 5</strong> (before Technical Testing is complete).</td>
+                </tr>
+                <tr>
+                    <td>Contingency Fund Insufficiency</td>
+                    <td><strong>(HIGH-SCORED PROBABILITY)</strong> <strong>Minimise.</strong> Establish strict budget tracking and a weekly review process to monitor expense accrual against the small contingency. Immediately notify the Project Sponsor (Omar Mubarak) if the fund drops below 50%.</td>
+                    <td><strong>Example:</strong> Project Manager to integrate a Contingency Drawdown Summary into the Bi-weekly Executive Status Report (submitted every second Thursday). Conduct a Final Budget Reconciliation during Week 12 to ensure all pilot expenses are accounted for before the final Project Closeout.</td>
+                </tr>
+                <tr>
+                    <td>Customisation/Vendor Scope Creep</td>
+                    <td><strong>Avoid.</strong> Formalise the scope of customisation. Require all requests for new features (e.g., coupon functionality) to be submitted via a <strong>formal Change Request (CR) process</strong> reviewed and approved by the Project Manager before being sent to the vendor.</td>
+                    <td><strong>Example:</strong> Implement a zero-tolerance policy on custom changes exceeding the $550 budget without a signed CR. Review the change request log weekly with the core team.</td>                    
+                </tr>
+                <tr>
+                    <td>Hardware Failure or Inadequate Quantity</td>
+                    <td><strong>Minimise &amp; Transfer.</strong> Purchase a small buffer of <strong>2 spare tablets</strong> using the contingency fund. Ensure the vendor agreement includes a standard 1-year warranty covering replacement costs for non-negligent damage or failure.</td>
+                    <td><strong>Example:</strong> Purchase the 2 spare tablets upon initial hardware delivery in <strong>Week 4</strong> (aligned with the 'Order Hardware' task). Store one spare tablet at each location (North and Downtown) to ensure zero service disruption from basic hardware failure.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>SCHEDULE RISKS</h3>
+    <p>This section outlines the strategies to mitigate potential delays, focusing on reducing technical complexity and managing stakeholder dependencies to keep the project on its 13-week schedule.</p>
+
+    <div class="table-wrapper" style="margin-bottom: 30px; border-radius: 1px; overflow: hidden; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);">
+    <table style="font-size: 0.9rem;">
+        <thead>
+            <tr>
+                <th style="width: 25%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Risk Description</th>
+                <th style="width: 40%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Mitigation Actions</th>
+                <th style="width: 35%; background-color: #e8f2f8; font-weight: bold; color: #1f2937;">Specific Scenario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>POS/Host System Integration Delays</b></td>
+                <td><b>(HIGH-SCORED RISK)</b> <b>Minimise.</b> Require the vendor to provide detailed integration documentation and a dedicated technical liaison early. Schedule a <b>pre-integration check</b> to confirm system compatibility before the main integration task.</td>
+                <td><b>Example:</b> During the System Integration Planning task in <b>Week 3</b>, hold a mandatory meeting with IT and the Vendor's Technical Lead to document the POS's exact version, APIs, and known limitations, dedicating <b>5 extra days</b> of schedule contingency around the actual integration task in <b>Week 5</b>.</td>
+            </tr>
+            <tr>
+                <td>Compressed Staff Training Window</td>
+                <td><b>(HIGH-SCORED RISK)</b> <b>Minimise.</b> Proactively address scheduling conflicts by requiring GMs (Gilly and Alex) to submit their staff's training schedule matrix by a hard deadline. Minimise the impact of high staff turnover by recording the initial in-person training sessions to create reusable digital assets</td>
+                <td><b>Example:</b> GMs must finalise the FOH Staff Training schedule by <b>Week 6</b>. Record in-person training sessions (<b>Weeks 7-8</b>) and edit the footage into concise video modules. These recorded sessions will then be used as training materials for all subsequent new FOH hires and for refresher training. The scheduled <b>Milestone: 100% Staff Training Complete</b> is an inflexible cut-off; however, the subsequent Soft Launch period (<b>Week 9</b>) is specifically designated to provide remedial training and re-testing for any staff members who initially fail to pass.</td>
+            </tr>
+            <tr>
+                <td>Testing and Feedback Overruns</td>
+                <td><b>Minimise.</b> Clearly define acceptance criteria (Go/No-Go Checklist) for the technical testing milestone. Implement a <b>fixed-time box</b> for bug fixes during the technical testing period to prevent indefinite scope creep.</td>
+                <td><b>Example:</b> Final Technical Testing in <b>Week 5</b> is strictly limited to 3 days (May 8-12). Any non-critical bugs discovered are logged, but the project proceeds to training if the core Go/No-Go criteria (order flow, POS sync, payment processing) are met.</td>
+            </tr>
+            <tr>
+                <td>Late Hardware Delivery</td>
+                <td><b>Transfer/Avoid.</b> Embed specific <b>penalties for late delivery</b> into the Vendor Contract. Maintain regular communication (daily checks) with the Procurement Lead and logistics partner during the delivery window.</td>
+                <td><b>Example:</b> Procurement Lead confirms hardware is secured and shipped by the end of <b>Week 4</b> (April 28). If hardware is late and threatens the <b>Week 4</b> installation, immediately notify Project Sponsor (Omar Mubarak) to initiate penalty clauses.</td>
+            </tr>
+            <tr>
+                <td>Pilot Site Physical Installation Delays</td>
+                <td><b>Minimise.</b> Assign dedicated IT resources to immediately address infrastructure deficiencies identified by the vendor.</td> 
+                <td><b>Example:</b> Ensure all infrastructure deficiencies (WiFi, power) identified in the <b>Week 3</b> Site Assessment are resolved by IT during <b>Weeks 3-4</b>. Only minor, cosmetic fixes should remain by the time hardware installation begins in <b>Week 4</b> (April 30).</td>
+            </tr>
+            <tr>
+                <td>Concurrent Two-Location Rollout Complexity</td>
+                <td><b>Minimise.</b> Delegate clear, separated responsibilities. Utilise the two GMs (Gilly and Alex) to own all site-specific operational training and minor issue resolution, reducing the PM's single point of failure.</td>
+                <td><b>Example:</b> PM's focus during the <b>Week 9</b> Soft Launch will be split evenly between North (Monday) and Downtown (Tuesday) for technical oversight. GMs are responsible for all FOH staff scheduling and performance management in their respective locations throughout the pilot.</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    
+  </main>
+<footer>       
+    <p>&copy;2025 <a href="https://www.linkedin.com/in/alexander-parshakov/" style="color: white; text-decoration: none;">Oleksandr Parshakov</a></p>
+    <p>Dream it. Build it.</p>
+  </footer>
+</body>
+</html>    
