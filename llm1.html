@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Large Language Models</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+    <h1>Oleksandr Parshakov</h1>
+    <nav>
+      <ul>        
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>LLM Fine-Tuning</h1>
+    <h2>Reparameterised DoRA in Weight Space</h2>
+    <h3>(December 2025)</h3>
+    <p>We investigate parameter-efficient fine-tuning (PEFT) of a Large Language Model, specifically applying Weight-Decomposed Low-Rank Adaptation (DoRA) to sentiment classification on the IMDb dataset using DistilBERT.</p>
+    <p> The work was inspired by Sebastian Raschka's paper <a href="https://magazine.sebastianraschka.com/p/lora-and-dora-from-scratch">"Improving LoRA: Implementing Weight-Decomposed Low-Rank Adaptation (DoRA) from Scratch"</a>.</p>
+    
+    <h3>Problem</h3>
+    <h4>The Adapter Paradox: Learning Direction and Magnitude Simultaneously</h4>
+    <p>Low-rank adapters were introduced to make fine-tuning large models efficient. In practice, both LoRA and DoRA implicitly ask the optimiser to solve two distinct geometric problems at once:</p>
+    <ol>
+        <li><p><strong>Direction finding:</strong> identifying which subspace of weight space should change.</p></li>
+        <li><p><strong>Magnitude control:</strong> determining how strongly that change should be expressed.</p></li>
+    </ol>
+    <p>In LoRA, both problems are entangled within the low-rank matrices A and B, forcing them to jointly encode where and how far to move in weight space.</p>
+    <p>DoRA attempts to improve upon this by explicitly decoupling direction and magnitude through normalisation. Unfortunately, this design introduces a deeper structural instability resulting in noisy optimisation and brittle convergence.</p>
+
+    <h4>The DoRA “Denominator Death Spiral”.</h4>
+    <p>In DoRA, the directional component is defined as:</p>
+    
+    <pre>
+    <code>
+        # from https://magazine.sebastianraschka.com/p/lora-and-dora-from-scratch
+        numerator = self.linear.weight + self.lora.alpha*lora.T
+        denominator = numerator.norm(p=2, dim=0, keepdim=True)
+        directional_component = numerator / denominator
+        new_weight = self.m * directional_component
+    </code>
+    </pre>
+
+    <p>This construction introduces a fragile normalisation bottleneck.</p>
+    <p>First, the denominator <strong>couples incompatible geometries:</strong></p>
+    <p>a high-rank, frozen pre-trained weight matrix with a low-rank adaptive update. The resulting norm is overwhelmingly dominated by the pre-trained weights, leaving the low-rank update with little influence over the resulting direction.</p>   
+    <p>As a consequence, directional gradients for A and B must pass through a global normalisation term that systematically attenuates small but meaningful directional corrections. The optimiser is therefore biased toward the path of least resistance: adjusting the scalar magnitude m , while true directional learning through A and B becomes slow, noisy, or stagnant.</p>       
+    
+    <p>This creates a feedback loop in which magnitude compensates for an under-expressive direction - <strong>the Denominator Death Spiral</strong>.</p>
+    
+    <h4>Missing Inductive Bias and Anisotropic Failure</h4>
+    <p>Crucially, DoRA provides <strong>no task-aligned inductive bias</strong> for which directions should survive normalisation. Instead, it enforces:</p>
+    <ul>
+      <li><p>a <strong>global geometric constraint</strong> (unit norm),</p></li>
+      <li><p>on a <strong>local, rank-limited perturbation.</strong></p></li>
+    </ul>
+    <p>Transformer weight spaces are highly <strong>anisotropic:</strong> a small number of directions carry disproportionately large semantic “energy,” while most directions are weak or redundant. DoRA’s normalisation implicitly treats all directions as equal, imposing a spherical constraint on a fundamentally spiky space.</p>
+    
+    <p>This restricts the model’s ability to selectively amplify or suppress pre-trained dominant directions — precisely the capability required for task-specific adaptation. The low-rank update is forced to approximate rich, anisotropic structure through a uniform constraint, leading to inefficient use of capacity and unstable optimisation dynamics.</p>
+
+    <h4>Consequence</h4>
+    <p>The outcome is a model that is geometrically more constrained than LoRA: more parameters, but less effective adaptability. This is the geometric irony of DoRA - while attempting to increase expressivity through decomposition, the normalisation step instead increases rigidity by coupling incompatible geometries.</p>
+    <p>On small models this instability may be survivable. On large models with highly anisotropic weight spaces, it becomes pathological.</p>
+    
+    <h3>Solution</h3>
+    <h4>Reparameterised DoRA in Weight Space</h4>
+    <p>To resolve the geometric instability introduced by DoRA’s normalisation, we reparameterise the <strong>weight matrix itself</strong>, rather than applying directional normalisation to the LoRA update. The key idea is simple: <em>direction and magnitude should be properties of the effective weight, not of a rank-limited perturbation competing with a frozen anchor.</em></p>
+    <p>The implementation follows the exact formulation used in our experiments:</p>
+    
+    <pre>
+    <code>
+        W_0 = self.linear.weight # pretrained weight
+        BA = (self.lora.B.t() @ self.lora.A.t()) * self.scale # weight update       
+        W_combined = W_0 + BA # (out_dim, in_dim)
+        column_norm = W_combined.norm(p=2, dim=1, keepdim=True) + 1e-9
+        W_direction = W_combined / column_norm # Direction (unit-norm rows)
+        W_final = self.m.t() * W_direction # Learned magnitude
+    </code>
+    </pre>
+
+    <p>This formulation removes the DoRA denominator entirely. Normalisation is applied <strong>after</strong> combining the pre-trained weights and the low-rank update, making it an intrinsic property of the weight vector rather than a fragile coupling between incompatible components.</p>
+
+    <h4>Geometric Effect</h4>
+    <p>This reparameterisation enforces a clear geometric constraint:</p>
+    <ul>
+      <li><p>Weight vectors are constrained to evolve through <strong>rotation plus controlled scaling</strong> (Anisotropic Control).</p></li>
+      <li><p>The optimiser can no longer arbitrarily stretch or collapse directions via a shared norm.</p></li>
+      <li><p>Directional updates are expressed directly in weight space, without being attenuated by a frozen, high-energy anchor.</p></li>
+    </ul>
+    <p>Because the norm is now an explicit parameter (m), it is optimised directly rather than emerging implicitly from the interaction of frozen and adaptive weights. This removes gradient entanglement between magnitude and direction and prevents norm-induced instability. By shifting from update-relative normalisation to a weight-space reparameterisation, the pathological optimisation dynamics of standard DoRA - exploding gradients, vanishing updates, and early-stage “lazy” magnitude fitting - are eliminated by construction.</p>
+    
+    <h4>Optimisation Alignment</h4>
+    <p>Although direction and magnitude are now geometrically decoupled, they remain <strong>optimisation-heterogeneous.</strong> Directional learning through the low-rank matrices A and B is intrinsically harder than magnitude adaptation through m. We therefore decouple their optimisation dynamics:</p>
+    <ul>
+      <li><p>A and B are trained conservatively with weight decay</p></li>
+      <li><p>m is trained with a higher learning rate and no weight decay</p></li>
+      <li><p>A cosine scheduler smooths convergence over the short two-epoch regime</p></li>
+    </ul>
+    <p>This alignment prevents early over-scaling and allows directional learning to proceed steadily. Empirically, this leads to faster convergence, lower validation loss, and consistently deeper local minima compared to a single learning-rate setup.</p>
+
+    <h4>Empirical Behaviour and Stability</h4>
+    <p>Across all attention and feed-forward projections, the reparameterised formulation is numerically stable, with no silent failures or gradient collapse. Adapter strength remains naturally bounded (≈5-13%), acting as a built-in guardrail against overwriting pre-trained structure.</p>
+    <p>Weight statistics remain well-conditioned throughout training:</p>
+    <p>|A|and |B| stay uniform, gradients remain healthy, and loss decreases smoothly. Validation loss drops from 0.32 to ~0.21 within two epochs, reaching over 92% test accuracy on IMDb with under 3% trainable parameters.</p>
+    
+    <h4>Enabling Structured Adaptation</h4>
+    <p>Once the geometric instability is removed, the model supports structured capacity allocation without additional heuristics. This makes it possible to:</p>
+    <ul>
+      <li><p>redistribute rank asymmetrically to early-layer Query and Value projections,</p></li>
+      <li><p>front-load adaptation to only the first half of the model,</p></li>
+      <li><p>and modulate adapter “loudness” via asymmetric α without inducing drift explosion.</p></li>
+    </ul>
+    <p>These refinements exploit the stability of the weight-space reparameterisation and would be difficult to justify under standard DoRA’s update-normalisation scheme.</p>
+
+    <h3>Impact / Outcome</h3>
+    <h4>Stable, Fast, and Parameter-Efficient Fine-Tuning</h4>
+    <p>Reparameterised DoRA in Weight Space delivers consistent performance gains while eliminating the optimisation pathologies observed in standard DoRA. Across all experiments on IMDb sentiment classification with DistilBERT, training remained numerically stable with no gradient collapse, silent failures, or reliance on heuristic stabilisation techniques. Validation loss decreased smoothly within a two-epoch regime, reaching over <strong>92% test accuracy</strong> with <strong>under 3% trainable parameters.</strong></p>
+    <p>A key practical outcome is <strong>training efficiency.</strong> By removing update-relative normalisation and aligning optimisation dynamics with weight-space geometry, fine-tuning time was reduced dramatically. One epoch completed in approximately <strong>8 minutes</strong>, compared to substantially longer runtimes observed with standard DoRA implementations under comparable settings. This makes the approach viable for rapid iteration and resource-constrained environments.</p>
+    <h4>Controlled Adaptation and Interpretable Drift</h4>
+    <p>The proposed formulation introduces a natural notion of controlled drift. Across all configurations, adapter strength remained bounded (≈5–13%), acting as an implicit guardrail against overwriting pre-trained structure. Unlike LoRA, where low-rank updates may occasionally dominate base weights, reparameterised DoRA maintains a stable balance between adaptation and preservation.</p>
+    <p>Drift analysis reveals a consistent hierarchical pattern:</p>
+    <ul>
+      <li><p><strong>Early layers (0–2)</strong> exhibit higher adaptation, reshaping input representations</p></li>
+      <li><p><strong>Later layers (3–5)</strong> adapt conservatively, refining rather than redefining semantics</p></li>
+    </ul>
+    <p>This behaviour emerges without explicit constraints, indicating that the weight-space geometry itself induces a meaningful inductive bias.</p>
+
+    <h4>Structured Capacity Allocation</h4>
+    <p>Once geometric stability is established, the model supports <strong>structured and targeted adaptation.</strong> Increasing rank selectively for early-layer Query and Value projections yields higher peak accuracy with only marginal increases in trainable parameters. The resulting reduction in per-direction drift demonstrates that <strong>higher rank enables richer geometry with less structural disruption</strong>, rather than simply amplifying updates.</p>
+    <p>Conversely, front-loading adaptation to only the first half of the model achieves <strong>99% of full-model performance while training only ~68% of the adapter parameters.</strong> This confirms that early layers function as the primary semantic engine for sentiment tasks, while later layers contribute task-aligned re-projection and decision sharpening (act as a sophisticated extension of the classification sub-network (the pre-classifier and classifier)).</p>
+    
+    <h4>Signal Strength vs. Expressivity</h4>
+    <p>Experiments with asymmetric scaling (α) further clarify the bias–variance tradeoff in parameter-efficient fine-tuning. Increasing rank improves geometric expressivity and peak validation performance but introduces mild over-specialisation. Increasing α instead amplifies error flow through semantically meaningful hubs, acting as an implicit regulariser that improves generalisation stability at a small cost in ceiling performance.</p>
+    <p>These results highlight an important distinction: <strong>rank controls what can be expressed; scale controls how strongly it is expressed.</strong> Treating these axes independently enables principled tuning of PEFT behaviour.</p>
+    
+    <h4>Broader Implications</h4>
+    <p>Collectively, these results show that the limitations of standard DoRA are not inherent to directional decomposition, but to where and how normalisation is applied. By reparameterising direction and magnitude directly in weight space, the proposed method resolves a fundamental geometric mismatch, yielding faster convergence, improved stability, and greater control over adaptation.</p>
+    <p>More broadly, this work suggests that effective PEFT methods must respect the <strong>anisotropic structure of transformer weight spaces.</strong> Normalisation schemes that ignore this structure risk trading theoretical elegance for practical rigidity. Reparameterised DoRA demonstrates that small geometric changes can unlock substantial gains in both performance and efficiency.</p>
+  </main>
+<footer>       
+    <p>&copy;2025 <a href="https://www.linkedin.com/in/alexander-parshakov/" style="color: white; text-decoration: none;">Oleksandr Parshakov</a></p>
+    <p>Dream it. Build it.</p>
+  </footer>
+</body>
+</html>    
