@@ -16,10 +16,13 @@
   </header>
 
   <main>
-    <h1>LLM Fine-Tuning</h1>
+    <h1 id="top">LLM Fine-Tuning</h1>
     <h2>Reparameterised DoRA in Weight Space</h2>
     <h3>(December 2025)</h3>
-    <p>We investigate parameter-efficient fine-tuning (PEFT) of a Large Language Model, specifically applying Weight-Decomposed Low-Rank Adaptation (DoRA) to sentiment classification on the IMDb dataset using DistilBERT.</p>
+    <p><b>Project Notebook:</b> <a href="https://lzrdgreen.github.io/LLMs/Fine-Tuning%20of%20DistilBERT%20on%20IMDB%20with%20DoRA.html">Notebook run with training logs and code</a></p>
+
+
+    <p>We investigate parameter-efficient fine-tuning (PEFT) of a transformer language model, applying Weight-Decomposed Low-Rank Adaptation (DoRA) to sentiment classification on the IMDb dataset using DistilBERT.</p>    
     <p> The work was inspired by Sebastian Raschka's paper <a href="https://magazine.sebastianraschka.com/p/lora-and-dora-from-scratch">"Improving LoRA: Implementing Weight-Decomposed Low-Rank Adaptation (DoRA) from Scratch"</a>.</p>
     
     <h3>Problem</h3>
@@ -48,7 +51,7 @@
     <p>This construction introduces a fragile normalisation bottleneck.</p>
     <p>First, the denominator <strong>couples incompatible geometries:</strong></p>
     <p>a high-rank, frozen pre-trained weight matrix with a low-rank adaptive update. The resulting norm is overwhelmingly dominated by the pre-trained weights, leaving the low-rank update with little influence over the resulting direction.</p>   
-    <p>As a consequence, directional gradients for A and B must pass through a global normalisation term that systematically attenuates small but meaningful directional corrections. The optimiser is therefore biased toward the path of least resistance: adjusting the scalar magnitude m , while true directional learning through A and B becomes slow, noisy, or stagnant.</p>       
+    <p>As a consequence, directional gradients for A and B must pass through a shared global normalisation term that systematically attenuates small but meaningful directional corrections. The optimiser is therefore biased toward the path of least resistance: adjusting the scalar magnitude m , while true directional learning through A and B becomes slow, noisy, or stagnant.</p>       
     
     <p>This creates a feedback loop in which magnitude compensates for an under-expressive direction - <strong>the Denominator Death Spiral</strong>.</p>
     
@@ -56,7 +59,7 @@
     <p>Crucially, DoRA provides <strong>no task-aligned inductive bias</strong> for which directions should survive normalisation. Instead, it enforces:</p>
     <ul>
       <li><p>a <strong>global geometric constraint</strong> (unit norm),</p></li>
-      <li><p>on a <strong>local, rank-limited perturbation.</strong></p></li>
+      <li><p>applied to a <strong>local, rank-limited perturbation.</strong></p></li>
     </ul>
     <p>Transformer weight spaces are highly <strong>anisotropic:</strong> a small number of directions carry disproportionately large semantic “energy,” while most directions are weak or redundant. DoRA’s normalisation implicitly treats all directions as equal, imposing a spherical constraint on a fundamentally spiky space.</p>
     
@@ -82,14 +85,14 @@
     </code>
     </pre>
 
-    <p>This formulation removes the DoRA denominator entirely. Normalisation is applied <strong>after</strong> combining the pre-trained weights and the low-rank update, making it an intrinsic property of the weight vector rather than a fragile coupling between incompatible components.</p>
+    <p>This formulation removes DoRA's update-relative denominator. Normalisation is applied <strong>after</strong> combining the pre-trained weights and the low-rank update, making it an intrinsic property of the weight vector rather than a fragile coupling between incompatible components.</p>
 
     <h4>Geometric Effect</h4>
     <p>This reparameterisation enforces a clear geometric constraint:</p>
     <ul>
-      <li><p>Weight vectors are constrained to evolve through <strong>rotation plus controlled scaling</strong> (Anisotropic Control).</p></li>
+      <li><p>Weight vectors are constrained to evolve through <strong>rotation plus controlled scaling</strong> (anisotropic control, preserving pre-trained directional emphasis).</p></li>
       <li><p>The optimiser can no longer arbitrarily stretch or collapse directions via a shared norm.</p></li>
-      <li><p>Directional updates are expressed directly in weight space, without being attenuated by a frozen, high-energy anchor.</p></li>
+      <li><p>Directional updates are expressed directly in the geometry of the effective weight, rather than being mediated through a shared normalisation dominated by frozen parameters.</p></li>
     </ul>
     <p>Because the norm is now an explicit parameter (m), it is optimised directly rather than emerging implicitly from the interaction of frozen and adaptive weights. This removes gradient entanglement between magnitude and direction and prevents norm-induced instability. By shifting from update-relative normalisation to a weight-space reparameterisation, the pathological optimisation dynamics of standard DoRA - exploding gradients, vanishing updates, and early-stage “lazy” magnitude fitting - are eliminated by construction.</p>
     
@@ -140,6 +143,66 @@
     <h4>Broader Implications</h4>
     <p>Collectively, these results show that the limitations of standard DoRA are not inherent to directional decomposition, but to where and how normalisation is applied. By reparameterising direction and magnitude directly in weight space, the proposed method resolves a fundamental geometric mismatch, yielding faster convergence, improved stability, and greater control over adaptation.</p>
     <p>More broadly, this work suggests that effective PEFT methods must respect the <strong>anisotropic structure of transformer weight spaces.</strong> Normalisation schemes that ignore this structure risk trading theoretical elegance for practical rigidity. Reparameterised DoRA demonstrates that small geometric changes can unlock substantial gains in both performance and efficiency.</p>
+
+    <h3>Final Results Table</h3>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+        <tr>
+          <th>Configuration</th>
+          <th>Rank (r)</th>
+          <th>Alpha (&alpha;)</th>
+          <th>Params (%)</th>
+          <th>Test Acc.</th>
+          <th>Key Takeaway</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><b>Baseline (Standard)</b></td>
+          <td>16</td>
+          <td>32</td>
+          <td>2.87%</td>
+          <td>91.89%</td>
+          <td>Baseline Stability</td>
+        </tr>
+        <tr>
+          <td><b>LR Split+Scheduler</b></td>
+          <td>16</td>
+          <td>32</td>
+          <td>2.87%</td>
+          <td>92.15%</td>
+          <td>Optimised Synergy</td>
+        </tr>
+        <tr>
+          <td><b>Asym. Rank (Hubs)</b></td>
+          <td>16-32</td>
+          <td>32</td>
+          <td>3.08%</td>
+          <td><b>92.25%</b></td>
+          <td>Peak Expressivity</td>
+        </tr>
+        <tr>
+          <td><b>Asym. Alpha (Hubs)</b></td>
+          <td>16</td>
+          <td>32-64</td>
+          <td>2.87%</td>
+          <td>92.10%</td>
+          <td>Robust Generalisation</td>
+        </tr>
+        <tr>
+          <td><b>Front-Loaded</b></td>
+          <td>16-32</td>
+          <td>32</td>
+          <td>2.10%</td>
+          <td>91.59%</td>
+          <td>Efficiency King</td>
+        </tr>
+        </tbody>        
+      </table>
+    </div>
+    <p>Normalisation in PEFT is not neutral: when applied across mismatched geometries, it can silently restrict expressivity. Effective adapters must respect the anisotropic structure of transformer weight spaces.</p>
+    <p><a href="#top">Jump to the Top</a></p>
   </main>
 <footer>       
     <p>&copy;2025 <a href="https://www.linkedin.com/in/alexander-parshakov/" style="color: white; text-decoration: none;">Oleksandr Parshakov</a></p>

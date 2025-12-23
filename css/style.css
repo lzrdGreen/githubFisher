@@ -81,7 +81,26 @@ body {
       margin: 15px 0;
       display: inline-block;
     }
-    
+
+    table {
+      width: 100%;
+      border-collapse: collapse; 
+    }
+
+    th, td {
+      border: 1px solid #2166ac;  
+      padding: 12px;            
+      text-align: left;
+    }
+
+    th {
+      background-color: #d1e5f0; 
+    }
+
+    tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+      
     button {
       background-color: #d1e5f0;
       border: 2px solid #2166ac;
