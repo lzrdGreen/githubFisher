@@ -50,8 +50,8 @@
 
     <p>This construction introduces a fragile normalisation bottleneck.</p>
     <p>First, the denominator <strong>couples incompatible geometries:</strong></p>
-    <p>a high-rank, frozen pre-trained weight matrix with a low-rank adaptive update. The resulting norm is overwhelmingly dominated by the pre-trained weights, leaving the low-rank update with little influence over the resulting direction.</p>   
-    <p>As a consequence, directional gradients for A and B must pass through a shared global normalisation term that systematically attenuates small but meaningful directional corrections. The optimiser is therefore biased toward the path of least resistance: adjusting the scalar magnitude m , while true directional learning through A and B becomes slow, noisy, or stagnant.</p>       
+    <p>a high-rank, frozen pre-trained weight matrix with a low-rank adaptive update. As a result, changing the direction of the effective weight requires disproportionately large updates to the low-rank factors, making directional learning effectively stiff.</p>   
+    <p>As a consequence, directional gradients for A and B must pass through a shared global normalisation term that systematically attenuates small but meaningful directional corrections. The optimisenorm is now an explicit parameterr is therefore biased toward the path of least resistance: adjusting the scalar magnitude m , while true directional learning through A and B becomes slow, noisy, or stagnant.</p>       
     
     <p>This creates a feedback loop in which magnitude compensates for an under-expressive direction - <strong>the Denominator Death Spiral</strong>.</p>
     
@@ -66,7 +66,7 @@
     <p>This restricts the model’s ability to selectively amplify or suppress pre-trained dominant directions — precisely the capability required for task-specific adaptation. The low-rank update is forced to approximate rich, anisotropic structure through a uniform constraint, leading to inefficient use of capacity and unstable optimisation dynamics.</p>
 
     <h4>Consequence</h4>
-    <p>The outcome is a model that is geometrically more constrained than LoRA: more parameters, but less effective adaptability. This is the geometric irony of DoRA - while attempting to increase expressivity through decomposition, the normalisation step instead increases rigidity by coupling incompatible geometries.</p>
+    <p>The outcome is a model that is geometrically more constrained than LoRA: although it has more parameters, directional change is effectively stiff because the frozen pre-trained weights dominate the normalised direction. This is the geometric irony of DoRA: while attempting to increase expressivity through decomposition, the update-relative normalisation induces effective rigidity by anchoring the direction to the dominant pre-trained weights and coupling incompatible geometries.</p>
     <p>On small models this instability may be survivable. On large models with highly anisotropic weight spaces, it becomes pathological.</p>
     
     <h3>Solution</h3>
@@ -94,7 +94,7 @@
       <li><p>The optimiser can no longer arbitrarily stretch or collapse directions via a shared norm.</p></li>
       <li><p>Directional updates are expressed directly in the geometry of the effective weight, rather than being mediated through a shared normalisation dominated by frozen parameters.</p></li>
     </ul>
-    <p>Because the norm is now an explicit parameter (m), it is optimised directly rather than emerging implicitly from the interaction of frozen and adaptive weights. This removes gradient entanglement between magnitude and direction and prevents norm-induced instability. By shifting from update-relative normalisation to a weight-space reparameterisation, the pathological optimisation dynamics of standard DoRA - exploding gradients, vanishing updates, and early-stage “lazy” magnitude fitting - are eliminated by construction.</p>
+    <p>Because the norm is now an explicit parameter (m), it is optimised directly rather than being implicitly anchored by the frozen pre-trained weights. This removes gradient entanglement between magnitude and direction and prevents norm-induced instability. By shifting from update-relative normalisation to a weight-space reparameterisation, the pathological optimisation dynamics of standard DoRA - exploding gradients, vanishing updates, and early-stage “lazy” magnitude fitting - are eliminated by construction.</p>
     
     <h4>Optimisation Alignment</h4>
     <p>Although direction and magnitude are now geometrically decoupled, they remain <strong>optimisation-heterogeneous.</strong> Directional learning through the low-rank matrices A and B is intrinsically harder than magnitude adaptation through m. We therefore decouple their optimisation dynamics:</p>
@@ -142,7 +142,7 @@
     
     <h4>Broader Implications</h4>
     <p>Collectively, these results show that the limitations of standard DoRA are not inherent to directional decomposition, but to where and how normalisation is applied. By reparameterising direction and magnitude directly in weight space, the proposed method resolves a fundamental geometric mismatch, yielding faster convergence, improved stability, and greater control over adaptation.</p>
-    <p>More broadly, this work suggests that effective PEFT methods must respect the <strong>anisotropic structure of transformer weight spaces.</strong> Normalisation schemes that ignore this structure risk trading theoretical elegance for practical rigidity. Reparameterised DoRA demonstrates that small geometric changes can unlock substantial gains in both performance and efficiency.</p>
+    <p>More broadly, this work suggests that effective PEFT methods must respect the <strong>anisotropic structure of transformer weight spaces.</strong> Normalisation schemes that ignore this structure risk trading theoretical elegance for practical rigidity, manifesting as optimisation stiffness that suppresses task-aligned directional change. Reparameterised DoRA demonstrates that small geometric changes can unlock substantial gains in both performance and efficiency.</p>
 
     <h3>Final Results Table</h3>
     <div style="overflow-x:auto;">
