@@ -22,7 +22,7 @@
     <p><b>Project Notebook:</b> <a href="https://lzrdgreen.github.io/LLMs/Fine-Tuning%20of%20DistilBERT%20on%20IMDB%20with%20DoRA.html">Notebook run with training logs and code</a></p>
 
 
-    <p><strong>Summary:</strong> We investigate parameter-efficient fine-tuning (PEFT) of a transformer language model, applying Weight-Decomposed Low-Rank Adaptation (DoRA) to sentiment classification on the IMDb dataset using DistilBERT. Standard DoRA suffers from a geometric mismatch: it normalises low-rank updates relative to high-rank frozen weights, which suppresses directional learning and forces the optimiser into magnitude-only shortcuts - the "Denominator Death Spiral." This is compounded by transformers' anisotropic weight spaces, where semantic information concentrates in few dominant directions, yet DoRA's spherical normalisation treats all directions equally. Reparameterising in weight space - combining weights first, then normalising - makes direction and magnitude intrinsic properties of the effective weight, eliminating gradient entanglement and restoring the optimiser's ability to perform controlled rotation plus scaling. This geometric fix unlocks stable, structured adaptation strategies that achieve >92% accuracy with ~2% trainable parameters, revealing a fundamental principle: normalisation placement in PEFT is not neutral: when applied across mismatched geometries it restricts expressivity, but when applied in weight space it unlocks stable, efficient, and controllable adaptation.</p>    
+    <p><strong>Summary:</strong> We investigate parameter-efficient fine-tuning (PEFT) of a transformer language model, applying Weight-Decomposed Low-Rank Adaptation (DoRA) to sentiment classification on the IMDb dataset using DistilBERT. Standard DoRA suffers from a geometric mismatch: it normalises low-rank updates relative to high-rank frozen weights, which suppresses directional learning and forces the optimiser into magnitude-only shortcuts. This is compounded by transformers' anisotropic weight spaces, where semantic information concentrates in few dominant directions, yet DoRA's spherical normalisation treats all directions equally. Reparameterising in weight space - combining weights first, then normalising - makes direction and magnitude intrinsic properties of the effective weight, eliminating gradient entanglement and restoring the optimiser's ability to perform controlled rotation plus scaling. This geometric fix unlocks stable, structured adaptation strategies that achieve >92% accuracy with ~2% trainable parameters, revealing a fundamental principle: normalisation placement in PEFT is not neutral: when applied across mismatched geometries it restricts expressivity, but when applied in weight space it unlocks stable, efficient, and controllable adaptation.</p>    
     <p> The work was inspired by Sebastian Raschka's paper <a href="https://magazine.sebastianraschka.com/p/lora-and-dora-from-scratch">"Improving LoRA: Implementing Weight-Decomposed Low-Rank Adaptation (DoRA) from Scratch"</a>.</p>
     
     <h3>Problem</h3>
@@ -35,7 +35,7 @@
     <p>In LoRA, both problems are entangled within the low-rank matrices A and B, forcing them to jointly encode where and how far to move in weight space.</p>
     <p>DoRA attempts to improve upon this by explicitly decoupling direction and magnitude through normalisation. Unfortunately, this design introduces a deeper structural instability resulting in noisy optimisation and brittle convergence.</p>
 
-    <h4>The DoRA “Denominator Death Spiral”.</h4>
+    <h4>The DoRA “Denominator Death Spiral”</h4>
     <p>In DoRA, the directional component is defined as:</p>
     
     <pre>
@@ -53,7 +53,7 @@
     <p>a high-rank, frozen pre-trained weight matrix with a low-rank adaptive update. As a result, changing the direction of the effective weight requires disproportionately large updates to the low-rank factors, making directional learning effectively stiff.</p>   
     <p>As a consequence, directional gradients for A and B must pass through a shared global normalisation term that systematically attenuates small but meaningful directional corrections. The optimisenorm is now an explicit parameterr is therefore biased toward the path of least resistance: adjusting the scalar magnitude m , while true directional learning through A and B becomes slow, noisy, or stagnant.</p>       
     
-    <p>This creates a feedback loop in which magnitude compensates for an under-expressive direction - <strong>the Denominator Death Spiral</strong>.</p>
+    <p>This creates a feedback loop in which magnitude compensates for an under-expressive direction - the <strong>"Denominator Death Spiral."</strong></p>
     
     <h4>Missing Inductive Bias and Anisotropic Failure</h4>
     <p>Crucially, DoRA provides <strong>no task-aligned inductive bias</strong> for which directions should survive normalisation. Instead, it enforces:</p>

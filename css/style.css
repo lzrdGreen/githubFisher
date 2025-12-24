@@ -17,7 +17,7 @@ body {
 
   header h1 {
     font-size: 2.5em;
-    color: #1f78b4;
+    color: #2166ac;
     margin: 0;
   }
 
@@ -35,7 +35,7 @@ body {
 
   nav a {
     text-decoration: none;
-    color: #1f78b4;
+    color: #2166ac;
     font-size: 1em;
   }
 
@@ -50,11 +50,11 @@ body {
     text-align: left;
   }
     h1 { 
-      color: #1f78b4;
+      color: #2166ac;
       text-align: center;
     }
     h2, h3 { 
-      color: #1f78b4;
+      color: #2166ac;
     }
 
     aside {
@@ -88,7 +88,7 @@ body {
     }
 
     th, td {
-      border: 1px solid #2166ac;  
+      border: 1px solid #053061;  
       padding: 12px;            
       text-align: left;
     }
@@ -121,7 +121,7 @@ body {
       width: 175px;
     }
     .thumb:hover {
-      box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+      box-shadow: 0 0 2px 1px #92c5de;
     }
 
     figure {
@@ -131,7 +131,7 @@ body {
     }
 
     footer {
-      background-color: #1f78b4;
+      background-color: #2166ac;
       height: 75px;
       padding: 10px; 
     }
