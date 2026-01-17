@@ -1,0 +1,151 @@
+
+body {
+    font-family: Tahoma, Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 10px;
+    background-color: #ffffff;
+    color: #111122;
+  }
+
+  header {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  header h1 {
+    font-size: 2.5em;
+    color: #66023C;
+    margin: 0;
+  }
+
+  nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  nav li {
+    margin: 0 15px;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: #66023C;
+    font-size: 1em;
+  }
+
+  nav a:hover {
+    text-decoration: underline;
+  }
+
+  main {
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+  }
+    h1 { 
+      color: #66023C;
+      text-align: center;
+    }
+    h2, h3 { 
+      color: #66023C;
+    }
+
+    aside {
+        width: 30%;
+        padding-left: 9px;
+        margin-left: 5px;
+        float: right;
+        font-family: Tahoma, Arial, sans-serif;
+        background-color: #B3819E;
+    }
+
+    code {
+        font-family: 'Courier New', Courier, monospace;
+        color: #000;
+        background-color: #f4f4f4;
+        font-size: 0.95rem;
+    }
+    pre {
+      background-color: #f4f4f4;
+      padding: 10px 15px; /* Increased padding for better internal breathing room */
+      border-radius: 4px;
+      overflow-x: auto;
+      border: 1px solid #ddd;
+      margin: 15px 0;
+      display: inline-block;
+    }
+
+    .centre {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 80%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse; 
+    }
+
+    th, td {
+      border: 1px solid #33011E;  
+      padding: 12px;            
+      text-align: left;
+    }
+
+    th {
+      background-color: #C79F00; 
+    }
+
+    tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+      
+    button {
+      background-color: #B3819E;
+      border: 2px solid #66023C;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 3px;
+    }
+    button:hover {
+        opacity: 0.7;
+    }
+
+    /* Borrowed from: https://www.w3schools.com/howto/howto_css_thumbnail.asp */
+    .thumb {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 3px;
+      margin: 12px;    
+      width: 175px;
+    }
+    .thumb:hover {
+      box-shadow: 0 0 2px 1px #B3819E;
+    }
+
+    figure {
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 15px;
+    }
+
+    footer {
+      background-color: #66023C;
+      height: 75px;
+      padding: 10px; 
+    }
+    footer p {
+        font-size: 20px;
+        font-family: Tahoma, Arial, sans-serif;
+        color: #fff;
+        text-align: center;
+        margin: 10px;
+    }
