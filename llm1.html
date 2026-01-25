@@ -53,7 +53,7 @@
     <p>This construction introduces a fragile normalisation bottleneck.</p>
     <p>First, the denominator <strong>couples incompatible geometries:</strong></p>
     <p>a high-rank, frozen pre-trained weight matrix with a low-rank adaptive update. As a result, changing the direction of the effective weight requires disproportionately large updates to the low-rank factors, making directional learning effectively stiff.</p>   
-    <p>As a consequence, directional gradients for A and B must pass through a shared global normalisation term that systematically attenuates small but meaningful directional corrections. The optimisenorm is now an explicit parameterr is therefore biased toward the path of least resistance: adjusting the scalar magnitude m , while true directional learning through A and B becomes slow, noisy, or stagnant.</p>       
+    <p>As a consequence, directional gradients for A and B must pass through a shared global normalisation term that systematically attenuates small but meaningful directional corrections. The optimisation process tends to follow the path of least resistance: it prioritises adjusting the scalar m while the directional learning via A and B becomes slow, noisy, or stagnant.</p>       
     
     <p>This creates a feedback loop in which magnitude compensates for an under-expressive direction - the <strong>"Denominator Death Spiral."</strong></p>
     

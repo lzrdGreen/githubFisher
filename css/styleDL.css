@@ -17,7 +17,7 @@ body {
 
   header h1 {
     font-size: 2.5em;
-    color: #66023C;
+    color: #276419;
     margin: 0;
   }
 
@@ -35,7 +35,7 @@ body {
 
   nav a {
     text-decoration: none;
-    color: #66023C;
+    color: #276419;
     font-size: 1em;
   }
 
@@ -50,11 +50,11 @@ body {
     text-align: left;
   }
     h1 { 
-      color: #66023C;
+      color: #276419;
       text-align: center;
     }
     h2, h3 { 
-      color: #66023C;
+      color: #276419;
     }
 
     aside {
@@ -63,7 +63,7 @@ body {
         margin-left: 5px;
         float: right;
         font-family: Tahoma, Arial, sans-serif;
-        background-color: #B3819E;
+        background-color: #e6f5d0;
     }
 
     code {
@@ -95,7 +95,7 @@ body {
     }
 
     th, td {
-      border: 1px solid #33011E;  
+      border: 1px solid #276419;  
       padding: 12px;            
       text-align: left;
     }
@@ -109,8 +109,8 @@ body {
     }
       
     button {
-      background-color: #B3819E;
-      border: 2px solid #66023C;
+      background-color: #e6f5d0;
+      border: 2px solid #276419;
       cursor: pointer;
       padding: 8px;
       border-radius: 3px;
@@ -128,7 +128,7 @@ body {
       width: 175px;
     }
     .thumb:hover {
-      box-shadow: 0 0 2px 1px #B3819E;
+      box-shadow: 0 0 2px 1px #e6f5d0;
     }
 
     figure {
@@ -138,7 +138,7 @@ body {
     }
 
     footer {
-      background-color: #66023C;
+      background-color: #276419;
       height: 75px;
       padding: 10px; 
     }
