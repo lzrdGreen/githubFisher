@@ -21,7 +21,7 @@ body {
     margin: 0;
   }
 
-  nav ul {
+  header nav ul {
     list-style: none;
     padding: 0;
     display: flex;
@@ -29,19 +29,38 @@ body {
     margin-top: 10px;
   }
 
-  nav li {
+  header nav li {
     margin: 0 15px;
   }
 
-  nav a {
+  header nav a {
     text-decoration: none;
     color: #276419;
     font-size: 1em;
   }
 
-  nav a:hover {
+  header nav a:hover {
     text-decoration: underline;
   }
+
+  .alphabet-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 10px;
+    }
+
+  .alphabet-nav a {
+    min-width: 30px;
+    text-align: center;
+    text-decoration: none;
+    color: #276419;
+    font-weight: bold;
+    }
 
   main {
     padding: 40px 20px;
@@ -57,16 +76,18 @@ body {
       color: #276419;
     }
 
+    h2[id] {
+      scroll-margin-top: 80px;
+      color: #276419;
+    }
+
     aside {
-        width: 25%;
-        /* Space inside the box */
-        padding: 9px;
-        /* Space outside the box */
-        margin: 2px;
+        width: 30%;
+        padding-left: 9px;
+        margin-left: 5px;
         float: right;
         font-family: Tahoma, Arial, sans-serif;
         background-color: #e6f5d0;
-        border: 3px solid #276419;
     }
 
     code {
@@ -85,26 +106,19 @@ body {
       display: inline-block;
     }
 
-    .centre {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      width: 80%;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse; 
     }
 
     th, td {
-      border: 1px solid #276419;  
+      border: 1px solid #8e0152;  
       padding: 12px;            
       text-align: left;
     }
 
     th {
-      background-color: #C79F00; 
+      background-color: #e6f5d0; 
     }
 
     tbody tr:hover {

@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Large Language Models</title>
+    <title>Power Prompts</title>
     <link rel="stylesheet" href="css/styleDL.css">
 </head>
 <body>
     <header>
-    <h1>Oleksandr Parshakov</h1>
+    <a href="https://www.linkedin.com/in/alexander-parshakov/" target="_blank" style="text-decoration: none;"><h1>Oleksandr Parshakov</h1></a>
      <nav>
       <ul>
         <li><a href="project-management.html">Home</a></li>
@@ -24,55 +24,66 @@
     <h2>Structured Ideation With Large Language Models (LLMs)</h2>
     <p><em>(problem-solving, analysis, brainstorming, prototyping, decision support)</em></p>
     <h3>(March 2026)</h3>
+    <div>
+    <aside>
+        <h3>Related Prompts</h3>
+        <p>AI is good at generating options. Your job is picking the right one - and making sure it holds up under pressure.</p>
+        <ul class="aside-links">
+        <li><a href="problem-solving.html"><strong>Problem Solving Prompts</strong></a> - Remove blockers and find the best path forward</li>
+        <li><a href="critical-thinking.html"><strong>Critical Thinking Prompts</strong></a> - Challenge your assumptions and spot what you're missing</li>
+    </ul>                
+    </aside>
+    
     <h3>I. Identify/ Diagnose the Problem</h3>
-    <h4 style="background-color: #e6f5d0;">1. 5 Whys: Root Cause Discovery / Analysis</h4>
+    <h4>1. 5 Whys: Root Cause Discovery / Analysis</h4>
     <ul>
         <li><p><strong>Purpose: </strong>Identify the systemic cause/ driver of a problem, bottleneck or failure through iterative causal questioning.</p></li>
-        <li><p style="background-color: #e6f5d0;"><strong>Prompt: </strong>“Act as a Consultant. Here is the [CONTEXT]. Analyse [ISSUE] by repeatedly asking ‘why’ until the root cause emerges (minimum five levels), then propose one corrective action.”</p></li>
+        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“Act as a Consultant. Here is the [CONTEXT]. Analyse [ISSUE] by repeatedly asking ‘why’ until the root cause emerges (minimum five levels), then propose one corrective action.”</mark></p></li>
         <li><p><strong>Technique: </strong>Continue beyond five if needed, then challenge assumptions with <strong>“Why not?” </strong>and drive ownership with <strong>“Why not us?”.</strong></p></li>
     </ul>
-    <h4 style="background-color: #e6f5d0;">2. First Principles: Zero-Based Design</h4>
+    <h4>2. First Principles: Zero-Based Design</h4>
     <ul>
         <li><p><strong>Purpose: </strong>Rebuild a strategy from fundamental truths, bypassing legacy constraints.</p></li>
-        <li><p style="background-color: #e6f5d0;"><strong>Prompt: </strong>"Act as a Business Consultant. Apply first-principles thinking to [CHALLENGE]: list all assumptions, strip each to its fundamental truth, propose a solution ignoring industry convention."</p></li>
+        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">"Act as a Business Consultant. Apply first-principles thinking to [CHALLENGE]: list all assumptions, strip each to its fundamental truth, propose a solution ignoring industry convention."</mark></p></li>
         <li><p><strong>Technique: </strong>Strip away all assumptions to solve the problem at its most essential level, then rebuild the solution from scratch.</p></li>
     </ul>
-    <h4 style="background-color: #e6f5d0;">3. Stakeholder/ Expert Panel</h4>
+    <h4>3. Stakeholder/ Expert Panel</h4>
     <ul>
         <li><p><strong>Purpose: </strong>Simulate a workshop, surface functional tensions before alignment by inhabiting three expert roles simultaneously</p></li>
-        <li><p style="background-color: #e6f5d0;"><strong>Prompt: </strong>“Take on three roles simultaneously ([Marketing Leader], [Sales Director], and [Product Head])  and critique [STRATEGY] from each perspective. Then, for [TOPIC], complete this sequence: A. <strong>Generate </strong>one bold idea per role (3 total); B. <strong>Cross-critique </strong>each idea through the other two lenses: [Brand], [Revenue], [Feasibility]; C. <strong>Synthesise </strong>the strongest idea(s) into a single recommendation that directly resolves the top objection raised.”</p></li>
-        <li><p><strong>Technique: </strong>Each expert produces ideas independently and the model reveals hidden dependencies, synergies, and synthesises common themes and trade-offs. Use a chain of prompts instead of a sequence of actions.</p></li>
+        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“Take on three roles simultaneously ([Marketing Leader], [Sales Director], and [Product Head])  and critique [STRATEGY] from each perspective. Then, for [TOPIC], complete this sequence: A. <strong>Generate </strong>one bold idea per role (3 total); B. <strong>Cross-critique </strong>each idea through the other two lenses: [Brand], [Revenue], [Feasibility]; C. <strong>Synthesise </strong>the strongest idea(s) into a single recommendation that directly resolves the top objection raised.”</p></li>
+        <li><p><strong>Technique: </strong>Each expert produces ideas independently and the model reveals hidden dependencies, synergies, and synthesises common themes and trade-offs. Use a chain of prompts instead of a sequence of actions.</mark></p></li>
     </ul>
+    </div>
     
     <h3>II. Generate Solutions</h3>
-    <h4 style="background-color: #e6f5d0;">4. SCAMPER: Innovation Catalyst</h4>
+    <h4>4. SCAMPER: Innovation Catalyst</h4>
     <ul>
         <li><p><strong>Purpose: </strong>Generate innovations by modifying an existing product, process, or service through feature mutations.</p></li>
-        <li><p style="background-color: #e6f5d0;"><strong>Prompt: </strong> “Act as a Business Consultant. Apply the SCAMPER framework to [PROCESS/ PRODUCT]. For each lens (Substitute, Combine, Adapt, Modify, Put to other use, Eliminate, Reverse), generate one concrete innovation idea. Format as a table.”</p></li>
+        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“Act as a Business Consultant. Apply the SCAMPER framework to [PROCESS/ PRODUCT]. For each lens (Substitute, Combine, Adapt, Modify, Put to other use, Eliminate, Reverse), generate one concrete innovation idea. Format as a table.”</mark></p></li>
         <li><p><strong>Technique: </strong>Produce ideas using structured transformation</p></li>
     </ul>
 
     <h3>III. Stress-Test Decisions</h3>
-    <h4 style="background-color: #e6f5d0;">5. Devil’s Advocate</h4>
+    <h4>5. Devil’s Advocate</h4>
     <ul>
         <li><p><strong>Purpose: </strong>Prevent failure by imagining the worst-case outcome(s) before commitment.</p></li>
-        <li><p style="background-color: #e6f5d0;"><strong >Prompt: </strong>"You are a senior risk advisor tasked with killing [PLAN/ PROJECT]. Identify the top 5 fatal flaws: strategic, financial, operational, market, execution. Then propose a mitigation for each - prioritise by impact."</p></li>
+        <li><p><strong >Prompt: </strong><mark style="background-color: #e6f5d0;">"You are a senior risk advisor tasked with killing [PLAN/ PROJECT]. Identify the top 5 fatal flaws: strategic, financial, operational, market, execution. Then propose a mitigation for each - prioritise by impact."</mark></p></li>
         <li><p><strong>Technique: </strong>Reverse the goal to uncover overlooked vulnerabilities, operational blockers and expose the weakest assumptions.</p></li>
     </ul>
-    <h4 style="background-color: #e6f5d0;">6. Six Thinking Hats: Parallel Thinking</h4>
+    <h4>6. Six Thinking Hats: Parallel Thinking</h4>
     <ul>
         <li><p><strong>Purpose: </strong>Conduct a 360-degree review of a strategic decision to mitigate biases.</p></li>
-        <li><p style="background-color: #e6f5d0;"><strong >Prompt: </strong> "Act as a Consultant. Evaluate [PROPOSAL/ DECISION] using Six Thinking Hats. One focused laconic paragraph per hat: White=data, Red=gut feelings, Black=risks, Yellow=benefits, Green=creative alternatives, Blue=next steps & control."</p></li>
+        <li><p><strong >Prompt: </strong><mark style="background-color: #e6f5d0;">"Act as a Consultant. Evaluate [PROPOSAL/ DECISION] using Six Thinking Hats. One focused laconic paragraph per hat: White=data, Red=gut feelings, Black=risks, Yellow=benefits, Green=creative alternatives, Blue=next steps & control."</mark></p></li>
         <li><p><strong>Technique: </strong>Force six cognitive modes to eliminate groupthink before any major decision.</p></li>
     </ul>
     <p><strong>Alternative: </strong>Scenario Modelling (Bull/Bear/Base)</p>
 
     <h3>IV. Refine/ Evaluate Output</h3>
-    <h4 style="background-color: #e6f5d0;">7. Writer–Editor</h4>
+    <h4>7. Writer–Editor</h4>
     <ul>
         <li><p><strong>Purpose: </strong>Maximise signal-to-noise ratio by subjecting ideas to a rigorous critical review process.</p></li>
-        <li><p style="background-color: #e6f5d0;"><strong>Prompt: </strong>“Act as a Business Consultant, rank these [SOLUTIONS/IDEAS] from best to worst and explain WHY. No hedging” ( Optional: + “use the following criteria: strategic impact, feasibility, and speed to value; score confidence on every claim”).</p></li>
-        <li><p><strong>Technique: </strong>Learn which LLM (ChatGPT, Google Gemini, Claude - each model has different training biases ) works best as a Critic/ Editor or as Actor/ Solution Generator – for executive-ready recommendations. Use disagreement between models as a signal!</p></li>
+        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“Act as a Business Consultant, rank these [SOLUTIONS/IDEAS] from best to worst and explain WHY. No hedging” ( Optional: + “use the following criteria: strategic impact, feasibility, and speed to value; score confidence on every claim”).</mark></p></li>
+        <li><p><strong>Technique: </strong>Learn which LLM (ChatGPT, Google Gemini, Claude - each model has different training biases) works best as a Critic/ Editor or as Actor/ Solution Generator – for executive-ready recommendations. Use disagreement between models as a signal!</p></li>
     </ul>
     <p><strong>Alternative: </strong>Chain of Density – if it converges to something meaningful</p>
     <div style="background-color: #e6f5d0; border: 3px solid #276419; padding: 2px 12px;">
