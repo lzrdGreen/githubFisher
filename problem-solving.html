@@ -21,7 +21,118 @@
 
   <main>
     <h1 id="top">Problem Solving Prompts</h1>
-    
+    <p><em>(remove a blocker and return to the baseline; path selection, option generation; <br>Problem solving is a goal-oriented process triggered by a specific gap between "where we are" and "where we need to be.")</em></p>
+
+    <h2>1. Structured Option Generator / Enumerator</h2>
+    <ul>
+        <li><p><strong>Purpose: </strong>To convert the AI from a single-answer generator into a strategy enumerator, facilitating executive choice through structured comparative evaluation.</p></li>
+
+        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“You are acting as a senior program delivery advisor. 
+        <br><br>Context
+        <br>Project: [PROJECT NAME]
+        <br>Objective: [GOAL OR DELIVERABLE]
+        <br>Constraint(s): [BUDGET / TIME / REGULATORY / RESOURCE LIMITS]
+        <br>Current problem: [CLEAR PROBLEM STATEMENT] 
+        <br><br>Task
+        <br>Generate 3-7 distinct solution paths to address the problem.
+        <br><br>For each path provide:
+        <br>1. Description of the approach 
+        <br>2. Key actions required 
+        <br>3. Advantages
+        <br>4. Risks or unintended consequences 
+        <br>5. Resource implications
+        <br>6. Political or stakeholder resistance likely
+        <br>7. Situations where this option is the best choice
+        <br><br>Then rank the options by:
+        <br>- fastest recovery
+        <br>- lowest risk
+        <br>- lowest stakeholder resistance
+        <br><br>Output in a comparison table.”</mark></p></li>
+
+        <li><p><strong>Technique: </strong>Decision Menu Facilitation - It moves the user from being a "messenger" of a single idea to a facilitator of choice by providing 3–7 distinct paths ranked by speed, risk, and resistance. Executive-Ready Output - By forcing a comparison table, it transforms messy problems into an executive-level "Options Appraisal" ready for immediate use in steering committee decks.</p></li>
+    </ul>
+    <h2>2. (Hidden) Dependency Unwinder</h2>
+    <ul>
+        <li><p><strong>Purpose: </strong>To cut through the habit of treating every dependency as equally urgent by using triage logic to identify the true root constraint vs. symptoms.</p></li>
+
+        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“Act as a systems thinker embedded in a [industry/sector, e.g. "infrastructure programme"]. The following task or milestone is blocked: [describe blocked item]. Map the full upstream and downstream dependency chain. Identify which dependency is the true root constraint vs. which ones are symptoms. Then propose the minimum viable intervention - the smallest change that unblocks the most. Flag any fix that solves the immediate problem but creates a downstream fragility.”</mark></p></li>
+
+        <li><p><strong>Technique: </strong>Constraint Triage - It enforces "Theory of Constraints" logic, preventing the waste of energy on downstream symptoms that resolve themselves once the primary upstream bottleneck is cleared. Fragility Detection - It moves beyond simple list-making to identify "minimal interventions," while flagging quick fixes that solve a current block but create long-term structural weakness.</p></li>
+    </ul>
+
+    <h2>3. Constraint-Driven Recovery Planner </h2>
+    <ul>
+        <li><p><strong>Purpose: </strong>To manage "Red" projects (RAG) by providing tiered recovery options that mirror real-world decision spaces and hard constraints.</p></li>
+
+        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“Act as a project recovery consultant.
+
+        <br><br>Project type: [IT / INFRASTRUCTURE / PRODUCT / TRANSFORMATION]
+        <br>Current status: [SUMMARY]
+        <br>Problem: [SCHEDULE DELAY / COST OVERRUN / SCOPE BLOCKER]
+
+        <br><br>Constraints:
+        <br>- Deadline: [DATE]
+        <br>- Budget flexibility: [NONE / LOW / MEDIUM / HIGH]
+        <br>- Resource flexibility: [LOW / MEDIUM / HIGH]
+        <br>- Political sensitivity: [LOW / MEDIUM / HIGH]
+
+        <br><br>Task:
+        <br>Produce a recovery strategy with three tiers:
+
+        <br><br>1. Conservative recovery
+        <br>2. Balanced recovery
+        <br>3. Aggressive recovery
+
+        <br><br>For each tier include:
+        <br>- specific actions
+        <br>- timeline impact
+        <br>- cost impact
+        <br>- operational risk
+        <br>- stakeholder reaction risk
+
+        <br><br>End with a recommendation based on the constraints.”</mark></p></li>
+
+        <li><p><strong>Technique: </strong>Scenario Banding - It prevents "false precision" by offering a spectrum of tiered responses (Conservative to Aggressive), giving stakeholders a genuine choice rather than a single recommendation to rubber-stamp. Constraint-Hardened Logic - It forces the model to reason within specific boundaries of budget and political sensitivity, ensuring the output mirrors a real recovery board paper rather than generic advice.</p></li>
+    </ul>
+
+    <h2>4. Second-Order Consequence Analyser</h2>
+    <ul>
+        <li><p><strong>Purpose: </strong>To challenge sunk-cost momentum and pre-commitment bias by surfacing the "hidden" downstream risks of a solution that appears successful on the surface.</p></li>
+
+        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“Evaluate the following proposed solution:
+
+        <br><br>[PROPOSED PLAN OR DECISION]
+
+        <br><br>Context:
+        <br>Project: [TYPE]
+        <br>Stakeholders: [KEY GROUPS]
+        <br>Dependencies: [SYSTEMS / TEAMS / SUPPLIERS]
+
+        <br><br>Analyse the decision in three layers:
+
+        <br>1. Immediate operational impact
+        <br>2. Second-order consequences (new risks, dependencies, workload shifts)
+        <br>3. Long-term strategic implications
+
+        <br><br>Identify:
+        <br>- hidden costs
+        <br>- organisational friction
+        <br>- risks that would likely emerge 2–6 months later
+
+        <br><br>Conclude with a risk-adjusted viability score from 1–10.”</mark></p></li>
+
+        <li><p><strong>Technique: </strong>Decision Validation Scrutiny - It uses the model’s pattern-recall strengths to identify secondary risks (workload shifts, new dependencies) that most PM thinking overlooks under schedule pressure. Temporal Calibration - By forcing a 2–6 month horizon for risk detection, it moves beyond the immediate "fix" to evaluate long-term strategic viability and organisational friction.</p></li>
+    </ul>
+
+    <h2>5. Resource Reallocation Pressure Test</h2>
+    <p><em>(political feasibility)</em></p>
+    <ul>
+        <li><p><strong>Purpose: </strong>To evaluate the political feasibility of recovery options by modeling resource shifts that account for organisational friction and stakeholder power rather than just technical merit.</p></li>
+
+        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“We are [X weeks] into a [type] project with the following constraints: [budget envelope / team capacity / fixed deadline]. The project is currently [status, e.g. "amber on scope, green on budget"]. Model three resource reallocation scenarios that could recover schedule without increasing cost. For each, show the sequencing logic, the role most affected, any 'technical debt' incurred, and whether the trade is reversible or locks us into a path. Present the options in order of political ease, not just technical merit.”</mark></p></li>
+
+        <li><p><strong>Technique: </strong>Political Feasibility Modelling - It forces the AI to move beyond "textbook" optimisation and rank options based on organisational friction, identifying which recovery path is actually likely to be approved. Path-Lock & Debt Awareness - By highlighting reversibility and technical debt, it distinguishes between temporary shifts and permanent structural changes, helping PMs protect their future maneuverability.</p></li>
+    </ul>
     
     <p><a href="#top">Jump to the Top</a></p>
   </main>
