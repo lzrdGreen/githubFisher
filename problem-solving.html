@@ -21,11 +21,15 @@
 
   <main>
     <h1 id="top">Problem Solving Prompts</h1>
-    <p><em>(remove a blocker and return to the baseline; path selection, option generation; <br>Problem solving is a goal-oriented process triggered by a specific gap between "where we are" and "where we need to be.")</em></p>
+    <p><em>(Problem solving is a goal-oriented process triggered by a specific gap between "where we are" and "where we need to be." 
+      <br>It means:
+      <br> remove blockers
+      <br>restore delivery baseline
+      <br>generate viable paths forward)</em></p>
 
-    <h2>1. Structured Option Generator / Enumerator</h2>
+    <h2>1. Structured Option Generator</h2>
     <ul>
-        <li><p><strong>Purpose: </strong>To convert the AI from a single-answer generator into a strategy enumerator, facilitating executive choice through structured comparative evaluation.</p></li>
+        <li><p><strong>Purpose: </strong>To convert the AI from a single-answer generator into a strategy enumerator, producing multiple solution paths so decision-makers can compare options rather than react to a single recommendation.</p></li>
 
         <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“You are acting as a senior program delivery advisor. 
         <br><br>Context
@@ -49,15 +53,26 @@
         <br>- lowest stakeholder resistance
         <br><br>Output in a comparison table.”</mark></p></li>
 
-        <li><p><strong>Technique: </strong>Decision Menu Facilitation - It moves the user from being a "messenger" of a single idea to a facilitator of choice by providing 3–7 distinct paths ranked by speed, risk, and resistance. Executive-Ready Output - By forcing a comparison table, it transforms messy problems into an executive-level "Options Appraisal" ready for immediate use in steering committee decks.</p></li>
+        <li><p><strong>Technique: </strong>
+          <br>Decision Menu Facilitation 
+          <br>- Generates multiple solution paths so the PM facilitates choice rather than advocating a single option 
+          <br>Executive-Ready Output 
+          <br>- A comparison table converts the analysis into a format suitable for steering committee decisions</p></li>
     </ul>
-    <h2>2. (Hidden) Dependency Unwinder</h2>
+    <h2>2. Dependency Chain Unwinder</h2>
     <ul>
-        <li><p><strong>Purpose: </strong>To cut through the habit of treating every dependency as equally urgent by using triage logic to identify the true root constraint vs. symptoms.</p></li>
+        <li><p><strong>Purpose: </strong>To identify the true root constraint by distinguishing critical dependencies from downstream symptoms.</p></li>
 
-        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“Act as a systems thinker embedded in a [industry/sector, e.g. "infrastructure programme"]. The following task or milestone is blocked: [describe blocked item]. Map the full upstream and downstream dependency chain. Identify which dependency is the true root constraint vs. which ones are symptoms. Then propose the minimum viable intervention - the smallest change that unblocks the most. Flag any fix that solves the immediate problem but creates a downstream fragility.”</mark></p></li>
+        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“Act as a systems thinker embedded in a [industry/sector, e.g. "infrastructure programme"]. 
+          <br>The following task or milestone is blocked: [describe blocked item]. <br><br>Map the full upstream and downstream dependency chain. <br>Identify which dependency is the true root constraint vs. which ones are symptoms. 
+          <br><br>Then propose the minimum viable intervention - the smallest change that unblocks the most. 
+          <br>Flag any fix that solves the immediate problem but creates a downstream fragility.”</mark></p></li>
 
-        <li><p><strong>Technique: </strong>Constraint Triage - It enforces "Theory of Constraints" logic, preventing the waste of energy on downstream symptoms that resolve themselves once the primary upstream bottleneck is cleared. Fragility Detection - It moves beyond simple list-making to identify "minimal interventions," while flagging quick fixes that solve a current block but create long-term structural weakness.</p></li>
+        <li><p><strong>Technique: </strong>
+          <br>Constraint Triage 
+          <br>- It enforces "Theory of Constraints" logic, preventing the waste of energy on downstream symptoms that resolve themselves once the primary upstream bottleneck is cleared. 
+          <br>Fragility Detection 
+          <br>- It moves beyond simple list-making to identify "minimal interventions," while flagging quick fixes that solve a current block but create long-term structural weakness.</p></li>
     </ul>
 
     <h2>3. Constraint-Driven Recovery Planner </h2>
@@ -92,7 +107,11 @@
 
         <br><br>End with a recommendation based on the constraints.”</mark></p></li>
 
-        <li><p><strong>Technique: </strong>Scenario Banding - It prevents "false precision" by offering a spectrum of tiered responses (Conservative to Aggressive), giving stakeholders a genuine choice rather than a single recommendation to rubber-stamp. Constraint-Hardened Logic - It forces the model to reason within specific boundaries of budget and political sensitivity, ensuring the output mirrors a real recovery board paper rather than generic advice.</p></li>
+        <li><p><strong>Technique: </strong>
+          <br>Scenario Banding 
+          <br>- Uses tiered recovery strategies (Conservative / Balanced / Aggressive) to present realistic decision options instead of a single recommendation. 
+          <br>Constraint-Hardened Logic 
+          <br>- It forces the model to reason within specific boundaries of budget and political sensitivity, ensuring the output mirrors a real recovery board paper rather than generic advice.</p></li>
     </ul>
 
     <h2>4. Second-Order Consequence Analyser</h2>
@@ -121,17 +140,35 @@
 
         <br><br>Conclude with a risk-adjusted viability score from 1–10.”</mark></p></li>
 
-        <li><p><strong>Technique: </strong>Decision Validation Scrutiny - It uses the model’s pattern-recall strengths to identify secondary risks (workload shifts, new dependencies) that most PM thinking overlooks under schedule pressure. Temporal Calibration - By forcing a 2–6 month horizon for risk detection, it moves beyond the immediate "fix" to evaluate long-term strategic viability and organisational friction.</p></li>
+        <li><p><strong>Technique: </strong>
+          <br>Decision Validation Scrutiny 
+          <br>- Surfaces second-order risks such as workload shifts and new dependencies. 
+          <br>Temporal Calibration 
+          <br>- Forces evaluation of risks that emerge 2–6 months after implementation, not just immediate impacts.</p></li>
     </ul>
 
     <h2>5. Resource Reallocation Pressure Test</h2>
-    <p><em>(political feasibility)</em></p>
+    <p><em>Political Feasibility</em></p>
     <ul>
         <li><p><strong>Purpose: </strong>To evaluate the political feasibility of recovery options by modeling resource shifts that account for organisational friction and stakeholder power rather than just technical merit.</p></li>
 
-        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“We are [X weeks] into a [type] project with the following constraints: [budget envelope / team capacity / fixed deadline]. The project is currently [status, e.g. "amber on scope, green on budget"]. Model three resource reallocation scenarios that could recover schedule without increasing cost. For each, show the sequencing logic, the role most affected, any 'technical debt' incurred, and whether the trade is reversible or locks us into a path. Present the options in order of political ease, not just technical merit.”</mark></p></li>
+        <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“We are [X weeks] into a [type] project with the following constraints: [budget envelope / team capacity / fixed deadline]. 
+          <br>The project is currently [status, e.g. "amber on scope, green on budget"]. 
+          
+          <br><br>Model three resource reallocation scenarios that could recover schedule without increasing cost. 
+          <br>For each, show 
+          <br>the sequencing logic, 
+          <br>the role most affected, 
+          <br>any 'technical debt' incurred, and 
+          <br>whether the trade is reversible or locks us into a path. 
+          
+          <br><br>Present the options in order of political ease, not just technical merit.”</mark></p></li>
 
-        <li><p><strong>Technique: </strong>Political Feasibility Modelling - It forces the AI to move beyond "textbook" optimisation and rank options based on organisational friction, identifying which recovery path is actually likely to be approved. Path-Lock & Debt Awareness - By highlighting reversibility and technical debt, it distinguishes between temporary shifts and permanent structural changes, helping PMs protect their future maneuverability.</p></li>
+        <li><p><strong>Technique: </strong>
+          <br>Political Feasibility Modelling 
+          <br>- Forces options to be ranked by organisational friction and stakeholder resistance, not just technical optimisation. 
+          <br>Path-Lock & Debt Awareness 
+          <br>- By highlighting reversibility and technical debt, it distinguishes between temporary shifts and permanent structural changes, helping PMs protect their future maneuverability.</p></li>
     </ul>
     
     <p><a href="#top">Jump to the Top</a></p>
