@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Delivery Decisions</title>
+<style>
+  body {
+    font-family: Tahoma, Arial, sans-serif;
+    line-height: 1.5;
+    color: #222;
+    margin: 20px;
+  }
+  h1, h2, h3 {
+    color: #1f78b4;
+  }
+  h1 {
+    margin-bottom: 5px;
+  }
+  .subtitle {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 15px 0;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    vertical-align: top;
+  }
+  th {
+    background-color: #d1e5f0;
+    text-align: left;
+  }
+  tr:nth-child(even) {
+    background-color: #f7fbff;
+  }
+  .highlight {
+    background-color: #d1e5f0;
+    padding: 10px;
+    border-left: 4px solid #1f78b4;
+    margin: 15px 0;
+  }
+  ul {
+    margin: 10px 0 10px 20px;
+  }
+  .section {
+    margin-top: 25px;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>AI Delivery Decisions: What to Use When</h1>
+<div class="subtitle"><strong>Balancing Autonomy, Control, and Reliability</strong></div>
+
+<p>
+In operational decision support, architecture is not static—it is progressively earned. 
+Success depends on a <strong>Maturity Cycle</strong> where the human role shifts from 
+active executor to strategic auditor as deterministic safeguards and evaluation baselines mature.
+</p>
+
+<div class="section">
+<h2>1. The Decision Support Landscape</h2>
+
+<p>Before selecting a pattern, define your variables to assign decision rights under uncertainty:</p>
+
+<table>
+  <tr>
+    <th>Pattern</th>
+    <th>Operational Role</th>
+    <th>Best For</th>
+    <th>Core Constraint</th>
+  </tr>
+  <tr>
+    <td><strong>Linear Automation</strong></td>
+    <td>“Reliable Clerk”</td>
+    <td>Known inputs, fixed logic, high volume</td>
+    <td>Predefined state machines; brittle to novelty</td>
+  </tr>
+  <tr>
+    <td><strong>Agentic Workflows</strong></td>
+    <td>“Problem Solver”</td>
+    <td>Open-ended goals, dynamic tool use</td>
+    <td>Non-deterministic; opaque reasoning and drift</td>
+  </tr>
+  <tr>
+    <td><strong>Human-in-the-Loop</strong></td>
+    <td>“Final Authority”</td>
+    <td>High-risk, low-confidence, novel cases</td>
+    <td>Throughput bottleneck; human latency and cost</td>
+  </tr>
+</table>
+
+<div class="highlight">
+<strong>Selection Heuristic:</strong>
+<ul>
+  <li>If inputs and steps are known → <strong>Linear Automation</strong></li>
+  <li>If the goal is known but steps vary → <strong>Agentic (bounded)</strong></li>
+  <li>If error cost is high or confidence is low → <strong>Enforce HITL</strong></li>
+</ul>
+</div>
+
+</div>
+
+<div class="section">
+<h2>2. The Delivery Maturity Lifecycle: MVP to Scale</h2>
+
+<p>Autonomy must be earned through a structured transition of control.</p>
+
+<h3>Stage 1: HITL (The "Intern" Phase)</h3>
+<p>
+AI produces drafts only; humans own the decision.
+</p>
+<ul>
+  <li>Log inputs, outputs, and human edits</li>
+  <li>Build a <strong>ground truth dataset</strong></li>
+</ul>
+
+<h3>Stage 2: HOTL (Controlled Scaling)</h3>
+<p>
+Introduce confidence thresholds:
+</p>
+<ul>
+  <li>High-confidence → auto-execute</li>
+  <li>Low-confidence → human review</li>
+  <li>Apply deterministic guardrails (schema validation, PII filters)</li>
+</ul>
+
+<h3>Stage 3: Conditional Autonomy (Operational Maturity)</h3>
+<p>
+Introduce agentic workflows selectively.
+</p>
+<ul>
+  <li>Define autonomy boundaries (max iterations, tool whitelists, cost ceilings)</li>
+  <li>Sandbox all agentic behaviour</li>
+</ul>
+
+<h3>Stage 4: Post-Mortem Governance</h3>
+<p>
+Humans shift to failure analysis and policy refinement.
+</p>
+<ul>
+  <li>Focus on decision traces and anomaly monitoring</li>
+  <li>Observability becomes the primary interface</li>
+</ul>
+
+</div>
+
+<div class="section">
+<h2>3. Implementation: The Deterministic Backbone</h2>
+
+<p>To scale safely, all autonomy must be encapsulated inside deterministic control layers.</p>
+
+<ul>
+  <li><strong>Control Plane (Linear Orchestration):</strong> Workflow engine manages state transitions, logging, and access control</li>
+  <li><strong>Modular LLM Components:</strong> Prompt-bounded steps with structured outputs (JSON); no free-form execution authority</li>
+  <li><strong>Sandboxed Agentic Modules:</strong> Used only for high-complexity tasks; governed by step and budget limits</li>
+  <li><strong>Observability Layer:</strong> Logging of prompt/response pairs, decision traces, and confidence scores (non-negotiable)</li>
+</ul>
+
+</div>
+
+<div class="section">
+<h2>4. Operational Heuristics for the Delivery Manager</h2>
+
+<ul>
+  <li><strong>Default to Linear:</strong> Escalate to agentic only when ambiguity requires it</li>
+  <li><strong>Insert HITL at Risk Boundaries:</strong> Trigger based on risk or novelty, never randomly</li>
+  <li><strong>Fallback Logic is Mandatory:</strong> Every agentic step must follow → Retry → Degrade → Escalate</li>
+  <li><strong>Autonomy is a Liability:</strong> Actively manage via drift detection and evaluation</li>
+</ul>
+
+<div class="highlight">
+<strong>The Golden Rule:</strong><br>
+You are not scaling AI—you are scaling <strong>trust</strong> and <strong>failure understanding</strong>. 
+Skipping the maturity curve leads to systems that appear intelligent but fail unpredictably.
+</div>
+
+</div>
+
+</body>
+</html>

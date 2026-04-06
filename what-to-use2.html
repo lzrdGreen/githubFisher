@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RAG vs Fine-Tuning</title>
+<style>
+  body {
+    font-family: Tahoma, Arial, sans-serif;
+    line-height: 1.5;
+    color: #222;
+    margin: 20px;
+  }
+  h1, h2, h3 {
+    color: #1f78b4;
+  }
+  .subtitle {
+    margin-bottom: 20px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 15px 0;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    vertical-align: top;
+  }
+  th {
+    background-color: #d1e5f0;
+    text-align: left;
+  }
+  tr:nth-child(even) {
+    background-color: #f7fbff;
+  }
+  .highlight {
+    background-color: #d1e5f0;
+    padding: 10px;
+    border-left: 4px solid #1f78b4;
+    margin: 15px 0;
+  }
+  ul {
+    margin-left: 20px;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>RAG vs Fine-Tuning: Knowledge vs Behaviour</h1>
+<div class="subtitle">
+Choosing between retrieval-based systems and model adaptation for real-world decision support
+</div>
+
+<p>
+AI delivery decisions start with a diagnostic, not a tool choice.
+</p>
+
+<div class="highlight">
+<strong>Core Diagnostic Question:</strong><br>
+Is the model failing because it <strong>doesn't know the facts</strong>, or because it <strong>doesn't know how to act</strong>?
+</div>
+
+---
+
+<h2>1. The Core Distinction: Knowledge vs Behaviour</h2>
+
+<table>
+<tr>
+  <th>Feature</th>
+  <th>RAG (Knowledge)</th>
+  <th>Fine-Tuning (Behaviour)</th>
+</tr>
+<tr>
+  <td><strong>Operational Role</strong></td>
+  <td>"Open-book test"</td>
+  <td>"Specialised training"</td>
+</tr>
+<tr>
+  <td><strong>Primary Function</strong></td>
+  <td>Inject external knowledge at runtime</td>
+  <td>Shape internal behaviour and reasoning</td>
+</tr>
+<tr>
+  <td><strong>Best For</strong></td>
+  <td>Dynamic data, proprietary knowledge, documents</td>
+  <td>Format, tone, domain logic, structured outputs</td>
+</tr>
+<tr>
+  <td><strong>Auditability</strong></td>
+  <td>High (source traceable)</td>
+  <td>Low (weights are opaque)</td>
+</tr>
+<tr>
+  <td><strong>Failure Mode</strong></td>
+  <td>Wrong or missing retrieval</td>
+  <td>Confidently wrong, consistently</td>
+</tr>
+<tr>
+  <td><strong>Maintenance</strong></td>
+  <td>Update index/data</td>
+  <td>Retrain model</td>
+</tr>
+</table>
+
+---
+
+<h2>2. RAG = Memory, Not Intelligence</h2>
+
+<p>
+RAG is not a model upgrade—it is a <strong>memory system at inference time</strong>.
+</p>
+
+<ul>
+  <li>If the model performs well on general knowledge but fails on your internal data → it lacks access, not capability</li>
+  <li>RAG provides working memory via retrieval (documents, contracts, product data)</li>
+</ul>
+
+<div class="highlight">
+<strong>Key Insight:</strong><br>
+Most RAG failures are not generation failures—they are <strong>retrieval failures</strong>.
+</div>
+
+<p><strong>Critical design levers:</strong></p>
+<ul>
+  <li>Chunking strategy (too large = dilution; too small = fragmentation)</li>
+  <li>Embedding model quality</li>
+  <li>Retrieval ranking and filtering</li>
+</ul>
+
+<p>
+A bad retrieval result is often worse than no context—the model will reason confidently from incorrect premises.
+</p>
+
+---
+
+<h2>3. Fine-Tuning = Behaviour Shaping</h2>
+
+<p>
+Fine-tuning does not reliably inject knowledge—it reshapes how the model behaves.
+</p>
+
+<ul>
+  <li>Output format (e.g. strict JSON schemas)</li>
+  <li>Tone and style (brand voice, compliance language)</li>
+  <li>Domain-specific reasoning patterns</li>
+</ul>
+
+<div class="highlight">
+<strong>Key Insight:</strong><br>
+If the model knows the answer but expresses it incorrectly → this is a behaviour problem.
+</div>
+
+<p>
+Fine-tuning creates consistency, not awareness. It is a <strong>snapshot</strong>, not a living system.
+</p>
+
+---
+
+<h2>4. The Practical Delivery Hierarchy</h2>
+
+<p>Complexity must be earned. Avoid the “GPU trap”.</p>
+
+<ol>
+  <li><strong>Prompt Engineering (Baseline):</strong> System prompts + few-shot examples. Fast, cheap, often sufficient.</li>
+  <li><strong>RAG (Knowledge Layer):</strong> Add when the model lacks factual grounding or access to proprietary data.</li>
+  <li><strong>Fine-Tuning (Behaviour Layer):</strong> Use only when format, tone, or reasoning cannot be stabilised via prompting.</li>
+  <li><strong>RAG + Fine-Tuning:</strong> Reserved for mature, high-value systems.</li>
+</ol>
+
+<div class="highlight">
+<strong>Common Failure:</strong><br>
+Teams fine-tune too early, when a well-designed RAG pipeline would have solved the problem faster and cheaper.
+</div>
+
+---
+
+<h2>5. Implementation: Engineering Reality</h2>
+
+<ul>
+  <li><strong>RAG is a search problem:</strong> Invest heavily in indexing, chunking, and retrieval quality</li>
+  <li><strong>Fine-tuning is a data problem:</strong> Requires high-quality, curated datasets</li>
+  <li><strong>Bad inputs = bad system:</strong> Both approaches amplify underlying data issues</li>
+</ul>
+
+<p><strong>Advanced Pattern:</strong></p>
+<ul>
+  <li>Use smaller fine-tuned models (e.g. ~8B) for structured tasks</li>
+  <li>Use larger models for reasoning over RAG context</li>
+</ul>
+
+---
+
+<h2>6. Operational Heuristics</h2>
+
+<ul>
+  <li><strong>RAG for Facts, Fine-Tuning for Form</strong></li>
+  <li><strong>Invest in Retrieval:</strong> 80% of RAG success is upstream</li>
+  <li><strong>Handle “No Answer” Gracefully:</strong> Absence of data should trigger escalation, not hallucination</li>
+  <li><strong>Complexity is a Liability:</strong> Every fine-tuned model adds maintenance overhead</li>
+</ul>
+
+<div class="highlight">
+<strong>The Delivery Manager’s Rule:</strong><br>
+If the model fails on your data → it needs <strong>memory (RAG)</strong>.<br>
+If it fails on format or reasoning → it needs <strong>training (fine-tuning)</strong>.
+</div>
+
+<div class="highlight">
+<strong>The Golden Rule:</strong><br>
+Context beats intelligence. A model with the right data at the right time will outperform a smarter model with the wrong information.
+</div>
+
+</body>
+</html>
