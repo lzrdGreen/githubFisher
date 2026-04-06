@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AI Delivery Decisions</title>
+<title>AI Delivery Architecture</title>
 <style>
   body {
     font-family: Tahoma, Arial, sans-serif;
@@ -54,7 +54,12 @@
 
 <body>
 
-<h1>AI Delivery Decisions: What to Use When</h1>
+<h1>AI Delivery Architecture: What to Use When</h1>
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="project-management.html" style="text-decoration: none; color: #1f78b4; font-family: sans-serif; font-size: 14px; font-weight: 500;">
+        &larr; Home
+    </a>
+</div>
 <div class="subtitle"><strong>Balancing Autonomy, Control, and Reliability</strong></div>
 
 <p>
@@ -102,6 +107,12 @@ active executor to strategic auditor as deterministic safeguards and evaluation 
   <li>If the goal is known but steps vary → <strong>Agentic (bounded)</strong></li>
   <li>If error cost is high or confidence is low → <strong>Enforce HITL</strong></li>
 </ul>
+<p><strong>In Simple Words</strong></p>
+<p>Think of it as three steps, each one earning you the right to move to the next.</p>
+<p><strong>Step 1 — HITL: the ground truth factory. </strong>You start here because you lack the evaluation baselines to trust automation. Every human correction builds the dataset that makes Step 2 possible. Goal: transition from 100% review</p>
+<p><strong>Step 2 — Linear Automation: your first ROI. </strong>Repeatable patterns get "frozen" into deterministic logic. A rule-based safeguard wraps the probabilistic LLM output and catches anything outside expected bounds. Anything too complex routes back to HITL</p>
+<p><strong>Step 3 — Agentic Workflows: replace the human. </strong>Only once monitoring is mature enough to catch drift do you promote a process here. The guardrails from Step 2 become the safety net that makes Step 3 trustworthy.</p>
+<p>The progression isn't just about ROI — it's about trust. You don't skip steps because you can't fake the data each one produces</p>
 </div>
 
 </div>
@@ -120,7 +131,7 @@ AI produces drafts only; humans own the decision.
   <li>Build a <strong>ground truth dataset</strong></li>
 </ul>
 
-<h3>Stage 2: HOTL (Controlled Scaling)</h3>
+<h3 id="stage-2-hotl">Stage 2: HOTL (Controlled Scaling)</h3>
 <p>
 Introduce confidence thresholds:
 </p>
@@ -173,11 +184,16 @@ Humans shift to failure analysis and policy refinement.
   <li><strong>Fallback Logic is Mandatory:</strong> Every agentic step must follow → Retry → Degrade → Escalate</li>
   <li><strong>Autonomy is a Liability:</strong> Actively manage via drift detection and evaluation</li>
 </ul>
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="project-management.html" style="text-decoration: none; color: #1f78b4; font-family: sans-serif; font-size: 14px; font-weight: 500;">
+        &larr; Home
+    </a>
+</div>
 
 <div class="highlight">
 <strong>The Golden Rule:</strong><br>
 You are not scaling AI—you are scaling <strong>trust</strong> and <strong>failure understanding</strong>. 
-Skipping the maturity curve leads to systems that appear intelligent but fail unpredictably.
+Skipping the maturity curve leads to systems that appear intelligent but fail unpredictably
 </div>
 
 </div>

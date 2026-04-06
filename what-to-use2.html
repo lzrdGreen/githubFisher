@@ -48,6 +48,11 @@
 <body>
 
 <h1>RAG vs Fine-Tuning: Knowledge vs Behaviour</h1>
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="project-management.html" style="text-decoration: none; color: #1f78b4; font-family: sans-serif; font-size: 14px; font-weight: 500;">
+        &larr; Home
+    </a>
+</div>
 <div class="subtitle">
 Choosing between retrieval-based systems and model adaptation for real-world decision support
 </div>
@@ -99,7 +104,7 @@ Is the model failing because it <strong>doesn't know the facts</strong>, or beca
 <tr>
   <td><strong>Maintenance</strong></td>
   <td>Update index/data</td>
-  <td>Retrain model</td>
+  <td>Retrain model - <strong>Expensive</strong></td>
 </tr>
 </table>
 
@@ -151,6 +156,13 @@ Fine-tuning does not reliably inject knowledge—it reshapes how the model behav
 If the model knows the answer but expresses it incorrectly → this is a behaviour problem.
 </div>
 
+<p><strong>Critical design levers:</strong></p>
+<ul>
+  <li>Dataset Quality & Coverage: Curate high-quality input/output pairs that reflect real task distribution—not just “perfect examples.” Coverage of edge cases matters more than raw volume</li>
+  <li>Validation & Evals: Define task-specific evaluation suites to ensure improvements in target behaviour do not degrade general reasoning (= Catastrophic Forgetting) or introduce regressions</li>
+  <li>Task–Model Fit: Select a base model with sufficient capacity for the task complexity. Smaller models optimise latency and cost; larger models retain broader reasoning ability</li>
+</ul>
+
 <p>
 Fine-tuning creates consistency, not awareness. It is a <strong>snapshot</strong>, not a living system.
 </p>
@@ -196,9 +208,14 @@ Teams fine-tune too early, when a well-designed RAG pipeline would have solved t
 <ul>
   <li><strong>RAG for Facts, Fine-Tuning for Form</strong></li>
   <li><strong>Invest in Retrieval:</strong> 80% of RAG success is upstream</li>
-  <li><strong>Handle “No Answer” Gracefully:</strong> Absence of data should trigger escalation, not hallucination</li>
+  <li><strong>Handle “No Answer” Gracefully:</strong> Absence of data should trigger escalation, not hallucination (see <a href="what-to-use1.html#stage-2-hotl">The Delivery Maturity Lifecycle: Stage 2: HOTL (Controlled Scaling)</a>)</li>
   <li><strong>Complexity is a Liability:</strong> Every fine-tuned model adds maintenance overhead</li>
 </ul>
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="project-management.html" style="text-decoration: none; color: #1f78b4; font-family: sans-serif; font-size: 14px; font-weight: 500;">
+        &larr; Home
+    </a>
+</div>
 
 <div class="highlight">
 <strong>The Delivery Manager’s Rule:</strong><br>
