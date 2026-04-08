@@ -175,6 +175,57 @@ Humans shift to failure analysis and policy refinement.
 
 </div>
 
+<div class="highlight">
+<strong>Aside: You Don’t Fix Stochastic Systems — You Outrun Them</strong>
+
+<p>
+LLMs are inherently probabilistic: hallucinations, variance, and overconfidence are not bugs—they are properties. There is no reliable way today to eliminate this at the model level.
+</p>
+
+<p>
+This is not new. When exact solutions are intractable but evaluation is cheap, the solution has historically been <strong>sampling</strong>:
+if you can cheaply test a candidate, you don’t need to trust any single one.
+</p>
+
+<p>
+<strong>Principle:</strong> Reliability is achieved by <strong>selection over multiple samples</strong>, not by improving a single output.
+</p>
+
+<ul>
+  <li>Generate <strong>N</strong> candidates (independent samples)</li>
+  <li>Evaluate via deterministic controls (validation, constraints, scoring)</li>
+  <li>Select best → execute; retain next-best → fallback / audit</li>
+</ul>
+
+<p>
+<strong>Key Shift:</strong><br>
+You are no longer trusting an output—you are trusting a <strong>selection process over a distribution</strong>.
+</p>
+
+<ul>
+  <li>From generation as truth → <strong>generation as proposal</strong></li>
+  <li>From validation as gatekeeper → <strong>selection as estimator</strong></li>
+  <li>From fixing errors → <strong>making errors statistically irrelevant</strong></li>
+</ul>
+
+<p>
+<strong>Operationalisation:</strong>
+</p>
+
+<ul>
+  <li><strong>N is a tuning parameter</strong> (cost × latency × risk)</li>
+  <li><strong>Early (HITL):</strong> apply broadly, keep N small (3–7), log all candidates</li>
+  <li><strong>Mature stages:</strong> apply selectively; retain top 2–3 only</li>
+</ul>
+
+<p>
+<strong>Implication:</strong><br>
+You do not make the model reliable.<br>
+You make <strong>unreliability non-fatal</strong>.
+</p>
+
+</div>
+
 <div class="section">
 <h2>4. Operational Heuristics for the Delivery Manager</h2>
 
