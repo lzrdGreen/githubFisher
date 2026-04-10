@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Direct them to your most important clusters
+Sitemap: https://parshakov.co.uk/sitemap.xml
