@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>AI Delivery Architecture</title>
-<meta name="description" content="A framework for AI delivery maturity. Learn how to transition from Human-in-the-Loop to Agentic Workflows by earning autonomy through deterministic safeguards.">
+<meta name="description" content="Master AI delivery: A technical framework for RAG, Fine-Tuning, and Inference-Time Search. Transition from HITL to Agentic Workflows by managing error propagation and long-horizon coherence.">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <style>
   body {
@@ -224,7 +224,7 @@ Humans shift to failure analysis and policy refinement.
 </div>
 
 <div class="highlight">
-<p id="aside"><strong>Aside: You Don’t Fix Stochastic Systems — You Outrun Them</strong></p>
+<p id="aside1"><strong>Aside1: You Don’t Fix Stochastic Systems — You Outrun Them</strong></p>
 
 <p>
 LLMs are inherently probabilistic: hallucinations, variance, and overconfidence are not bugs—they are properties. There is no reliable way today to eliminate this at the model level.
@@ -271,6 +271,562 @@ You are no longer trusting an output—you are trusting a <strong>selection proc
 You do not make the model reliable.<br>
 You make <strong>unreliability non-fatal</strong>.
 </p>
+
+</div>
+<div class="highlight">
+<p id="aside2"><strong>Aside 2: From Single-Pass Generation to Inference-Time Compute</strong></p>
+
+<p>
+LLMs are inherently probabilistic. Hallucinations, variance, and overconfidence are not bugs—they are properties. Historically, we treated the model as a function:
+</p>
+
+<p><strong>Input → Output</strong></p>
+
+<p>
+and tried to improve reliability by making that function “better” (more data, larger models, fine-tuning).
+</p>
+
+<p>
+Recent developments shift the paradigm:
+</p>
+
+<p>
+<strong>Reliability is no longer a property of a single forward pass.<br>
+It is a property of a search process at inference time.</strong>
+</p>
+
+<p><strong>The New Paradigm: Reasoning as Search</strong></p>
+
+<p>
+Instead of producing one answer, the system treats generation as a <strong>search problem over a latent solution space</strong>.
+</p>
+
+<ul>
+  <li>The latent space is the set of all possible reasoning paths the model can generate</li>
+  <li>In domains like code or security, these paths can be interpreted as candidate <strong>programs, plans, or action sequences</strong></li>
+</ul>
+
+<p>
+Rather than committing to a single trajectory, the system explores multiple possibilities:
+</p>
+
+<p><strong>Generate → Evaluate → Branch → Prune → Continue</strong></p>
+
+<p>
+This replaces the original paradigm:
+</p>
+
+<p><strong>Input → One forward pass → Output</strong></p>
+
+<p>
+with:
+</p>
+
+<p><strong>Input → Multiple rollouts → Selection / Refinement → Output</strong></p>
+
+<p><strong>Structured Reasoning (Not Magic, Not Symbolic)</strong></p>
+
+<p>
+This is sometimes described as “reasoning” or “agentic behaviour,” but mechanistically it is:
+</p>
+
+<p><strong>Inference-time search guided by learned heuristics</strong></p>
+
+<ul>
+  <li>The model proposes candidate reasoning steps</li>
+  <li>The system evaluates intermediate states</li>
+  <li>Weak paths are pruned before completion</li>
+</ul>
+
+<p>
+This can be framed (loosely) as a <strong>structured chain-of-thought</strong>, but:
+</p>
+
+<ul>
+  <li>it is not symbolic reasoning</li>
+  <li>it is not a separate reasoning engine</li>
+  <li>it is controlled exploration over possible continuations</li>
+</ul>
+
+<p><strong>“Thinking Longer,” Not “Thinking Better”</strong></p>
+
+<p>
+The key capability shift is:
+</p>
+
+<p>
+<strong>The system converts additional compute at inference time into better outcomes.</strong>
+</p>
+
+<ul>
+  <li>More rollouts → broader exploration</li>
+  <li>More evaluation → better filtering</li>
+  <li>More depth → improved multi-step coherence</li>
+</ul>
+
+<p>
+In principle, any sufficiently capable model can do this. In practice, performance depends on:
+</p>
+
+<ul>
+  <li>long-horizon consistency</li>
+  <li>ability to recover from intermediate errors</li>
+  <li>quality of evaluation and pruning</li>
+</ul>
+
+<p><strong>Principle: Reliability is a Search-and-Selection Process</strong></p>
+
+<p>
+When exact solutions are intractable but evaluation is cheap:
+</p>
+
+<p>
+<strong>You do not trust any single output—you trust the process that selects among many.</strong>
+</p>
+
+<p>
+This extends the sampling principle:
+</p>
+
+<ul>
+  <li>From Generate N → Select best</li>
+  <li>To Explore a tree of candidates → Converge on viable paths</li>
+</ul>
+
+<p><strong>Key Shift:</strong></p>
+
+<ul>
+  <li>From generation as truth → <strong>generation as proposal</strong></li>
+  <li>From validation as gatekeeper → <strong>selection as estimator</strong></li>
+  <li>From fixing errors → <strong>pruning incorrect paths early</strong></li>
+</ul>
+
+<p><strong>Operationalisation</strong></p>
+
+<ul>
+  <li><strong>Search depth / breadth is a tuning parameter</strong> (cost × latency × risk)</li>
+  <li><strong>Evaluation is non-negotiable</strong> (deterministic validation, constraints, scoring define system reliability)</li>
+  <li><strong>Failure must be explicit:</strong> if no high-confidence path is found → escalate to Stage 1 (HITL), do not guess</li>
+  <li><strong>All exploration must be sandboxed</strong> (no free-form execution outside controlled boundaries)</li>
+</ul>
+
+<p>
+<strong>Implication:</strong>
+</p>
+
+<p>
+You are no longer deploying a model.<br>
+You are deploying a <strong>search-and-verification system over model-generated possibilities</strong>.
+</p>
+
+<p>
+You do not make the model reliable.<br>
+You build an architecture in which <strong>only reliable reasoning paths survive</strong>.
+</p>
+
+</div>
+
+<div class="highlight">
+<p id="aside3"><strong>Aside 3: From Reasoning to Systems — Making It Work in Practice</strong></p>
+
+<p><strong>The Real Breakthrough: Long-Horizon Coherence</strong></p>
+
+<p>
+Earlier systems often fail in a predictable pattern:
+</p>
+
+<ul>
+  <li>Step 1 → correct</li>
+  <li>Step 2 → correct</li>
+  <li>Step 5 → collapse</li>
+</ul>
+
+<p>
+The issue is not intelligence—it is <strong>error accumulation across steps</strong>.
+</p>
+
+<p>
+Recent systems improve not by being “smarter,” but by maintaining <strong>coherence across multi-step plans</strong>.
+</p>
+
+<p>
+This matters directly for your maturity model:
+</p>
+
+<p>
+At <strong>Stage 3 (Conditional Autonomy)</strong>, you are no longer just constraining:
+</p>
+
+<ul>
+  <li>tools</li>
+  <li>cost</li>
+  <li>iterations</li>
+</ul>
+
+<p>
+You are managing:
+</p>
+
+<p><strong>the propagation of errors across a sequence of decisions</strong></p>
+
+<p><strong>Design Implication</strong></p>
+
+<p>
+Workflows must shift from:
+</p>
+
+<p><strong>plan → execute → hope</strong></p>
+
+<p>
+to:
+</p>
+
+<p><strong>plan → act → validate → branch / rollback</strong></p>
+
+<ul>
+  <li>Insert <strong>intermediate validation checkpoints</strong></li>
+  <li>Continuously <strong>re-evaluate state</strong></li>
+  <li>Enable <strong>rollback and alternative path selection</strong></li>
+</ul>
+
+<p>
+All non-determinism must be <strong>wrapped in deterministic enforcement layers</strong>.
+</p>
+
+<hr>
+
+<p><strong>Decision Trace > Output</strong></p>
+
+<p>
+At scale, logging inputs and outputs is insufficient.
+</p>
+
+<p>
+You need <strong>decision trace capture</strong>:
+</p>
+
+<ul>
+  <li>candidate branches explored</li>
+  <li>rejected paths</li>
+  <li>scoring and selection rationale</li>
+</ul>
+
+<p>
+Because:
+</p>
+
+<p><strong>The “decision” is not the output — it is the selection process.</strong></p>
+
+<hr>
+
+<p><strong>Confidence is Not a Scalar — It Is a Distribution</strong></p>
+
+<p>
+Traditional HOTL systems rely on:
+</p>
+
+<p><strong>if confidence &gt; threshold → execute</strong></p>
+
+<p>
+This is insufficient.
+</p>
+
+<p>
+A more robust model:
+</p>
+
+<ul>
+  <li>Each output = a sample from a distribution</li>
+  <li>Reliability = <strong>agreement across samples</strong></li>
+</ul>
+
+<p>
+Replace:
+</p>
+
+<p><strong>if confidence &gt; threshold → execute</strong></p>
+
+<p>
+With:
+</p>
+
+<p><strong>if consensus(N samples) &gt; threshold → execute</strong></p>
+
+<p>
+<strong>Key shift:</strong><br>
+Confidence is <strong>emergent from sampling</strong>, not predicted by the model.
+</p>
+
+<hr>
+
+<p><strong>Observability Becomes the Product</strong></p>
+
+<p>
+As systems become more agentic, the interface shifts:
+</p>
+
+<table>
+  <tr>
+    <th>Traditional</th>
+    <th>AI-Native</th>
+  </tr>
+  <tr>
+    <td>UI = outputs</td>
+    <td><strong>UI = decision traces</strong></td>
+  </tr>
+  <tr>
+    <td>Debugging = logs</td>
+    <td><strong>Debugging = trajectory analysis</strong></td>
+  </tr>
+  <tr>
+    <td>Errors = bugs</td>
+    <td><strong>Errors = distribution tails</strong></td>
+  </tr>
+</table>
+
+<p>
+This is why <strong>observability is not optional</strong>—it is the primary interface for control.
+</p>
+
+<hr>
+
+<p><strong>Autonomy Is a Budgeted Resource</strong></p>
+
+<p>
+Autonomy is not binary. It is a function of system constraints:
+</p>
+
+<p><strong>Autonomy = f(compute budget, tool access, search depth)</strong></p>
+
+<ul>
+  <li>More compute → deeper search → better outcomes</li>
+  <li>Tighter constraints → lower risk, lower capability</li>
+</ul>
+
+<p>
+Your existing controls:
+</p>
+
+<ul>
+  <li>cost ceilings</li>
+  <li>iteration limits</li>
+  <li>tool whitelists</li>
+</ul>
+
+<p>
+are not safeguards alone—they are <strong>levers of intelligence</strong>.
+</p>
+
+<hr>
+
+<p><strong>System-Level Reality</strong></p>
+
+<p>
+The breakthrough is not the model alone, but the <strong>system wrapped around it</strong>:
+</p>
+
+<ul>
+  <li>adaptive sampling policies (N based on uncertainty)</li>
+  <li>deterministic validators vs learned evaluators</li>
+  <li>hybrid control planes (symbolic + neural)</li>
+  <li>task decomposition vs emergent planning trade-offs</li>
+</ul>
+
+<p>
+Better generation × weak evaluation = unreliable system<br>
+Moderate generation × strong evaluation = production system
+</p>
+
+<hr>
+
+<p><strong>Final Synthesis</strong></p>
+
+<table>
+  <tr>
+    <th>Old Paradigm</th>
+    <th>New Paradigm</th>
+  </tr>
+  <tr>
+    <td>Prompt → Output</td>
+    <td><strong>Generate → Explore → Evaluate → Select → Execute</strong></td>
+  </tr>
+  <tr>
+    <td>Trust the model</td>
+    <td><strong>Trust the selection process</strong></td>
+  </tr>
+  <tr>
+    <td>Fix errors</td>
+    <td><strong>Prevent error propagation</strong></td>
+  </tr>
+</table>
+
+<p>
+<strong>The most important shift:</strong>
+</p>
+
+<p>
+You are not building systems that are correct.<br>
+You are building systems where <strong>incorrectness does not propagate</strong>.
+</p>
+
+</div>
+
+<div class="highlight">
+<p id="aside4"><strong>Aside 4: Practical Applications — Choosing the Right Paradigm</strong></p>
+
+<p>
+Software development is an ideal testbed: clearly defined objectives, deterministic evaluation (tests), and measurable outcomes.
+</p>
+
+<p>
+What many teams miss is that current coding systems do <strong>not</strong> represent one category of tool. They implement <strong>three fundamentally different architectural paradigms</strong>.
+</p>
+
+<p>
+Treating them as interchangeable leads to poor outcomes—and overestimating tools that are, in reality, operating at lower maturity levels.
+</p>
+
+<hr>
+
+<p><strong>Three Paradigms in Practice</strong></p>
+
+<table>
+  <tr>
+    <th>Paradigm</th>
+    <th>System Behaviour</th>
+    <th>Best Use Case</th>
+    <th>Underlying Pattern</th>
+  </tr>
+  <tr>
+    <td><strong>Deep Reasoning Systems</strong></td>
+    <td>Plan → iterate → test → refine</td>
+    <td>Complex refactoring, debugging, edge cases</td>
+    <td>Depth-first search (low branching, high coherence)</td>
+  </tr>
+  <tr>
+    <td><strong>Context-Saturated Systems</strong></td>
+    <td>Load large context → generate quickly</td>
+    <td>Enterprise codebases, infra integration</td>
+    <td>Memory over search</td>
+  </tr>
+  <tr>
+    <td><strong>Pipeline-Integrated Systems</strong></td>
+    <td>Generate → test → patch (fast loops)</td>
+    <td>CI/CD, automation, high-throughput tasks</td>
+    <td>Sampling + external validation</td>
+  </tr>
+</table>
+
+<hr>
+
+<p><strong>Concrete Mapping (What You Actually Use)</strong></p>
+
+<ul>
+  <li><strong>Complex refactoring system</strong> → deep reasoning + iteration (Claude-style)</li>
+  <li><strong>Enterprise knowledge / infra system</strong> → large context + retrieval (Gemini-style)</li>
+  <li><strong>Production automation (CI/CD)</strong> → sampling + validation loops (Codex-style)</li>
+</ul>
+
+<p>
+These are not branding differences—they are <strong>different ways of exploring the solution space</strong>.
+</p>
+
+<hr>
+
+<p><strong>Common Misconception</strong></p>
+
+<p>
+Many developers use general-purpose assistants (e.g. basic IDE copilots) and assume they represent the state of the art.
+</p>
+
+<p>
+In reality, these tools typically operate as:
+</p>
+
+<p><strong>Input → Output (single-pass generation with minimal validation)</strong></p>
+
+<p>
+This places them closer to:
+</p>
+
+<ul>
+  <li>Stage 1 (HITL support)</li>
+  <li>or early Stage 2 (limited automation)</li>
+</ul>
+
+<p>
+They are useful—but they do not implement:
+</p>
+
+<ul>
+  <li>multi-step search</li>
+  <li>iterative validation loops</li>
+  <li>system-level selection mechanisms</li>
+</ul>
+
+<p>
+As a result, they:
+</p>
+
+<ul>
+  <li>feel fast</li>
+  <li>appear capable</li>
+  <li>fail on complex, multi-step tasks</li>
+</ul>
+
+<hr>
+
+<p><strong>The Real Selection Problem</strong></p>
+
+<p>
+You are not choosing a “better model.” You are choosing:
+</p>
+
+<p><strong>a search strategy + evaluation architecture</strong></p>
+
+<ul>
+  <li>Need deep correctness → <strong>increase search depth</strong></li>
+  <li>Need speed at scale → <strong>externalise validation (pipelines)</strong></li>
+  <li>Need system awareness → <strong>increase context + retrieval</strong></li>
+</ul>
+
+<hr>
+
+<p><strong>Key Insight</strong></p>
+
+<p>
+The three paradigms correspond to different ways of making stochastic systems reliable:
+</p>
+
+<ul>
+  <li><strong>Internal reasoning</strong> (prune bad paths early)</li>
+  <li><strong>Context saturation</strong> (reduce ambiguity upfront)</li>
+  <li><strong>External validation</strong> (filter outputs after generation)</li>
+</ul>
+
+<p>
+None is universally superior. Each is optimal under different constraints.
+</p>
+
+<hr>
+
+<p><strong>Implication</strong></p>
+
+<p>
+If you use the wrong paradigm for the task, failure is guaranteed:
+</p>
+
+<ul>
+  <li>Deep reasoning systems → slow for simple tasks</li>
+  <li>Context-heavy systems → fail on multi-step reasoning</li>
+  <li>Pipeline systems → unsafe without strong validation</li>
+</ul>
+
+<p>
+This is why:
+</p>
+
+<p><strong>Most AI delivery failures are not model failures—they are architectural mismatches.</strong></p>
 
 </div>
 
