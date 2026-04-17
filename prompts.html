@@ -156,10 +156,11 @@
         <li><p><strong>Purpose: </strong>Maximise signal-to-noise ratio by subjecting ideas to a rigorous critical review process.</p></li>
         <li><p><strong>Prompt: </strong><mark style="background-color: #e6f5d0;">“Act as a Business Consultant, 
             <br>rank these [SOLUTIONS/IDEAS] from best to worst and explain <strong>WHY</strong>. 
-            <br>No hedging” 
+            <br>No hedging.
+            <br>If two or more options are not meaningfully distinguishable under the given criteria, explicitly mark them as ‘non-separable’ rather than forcing a ranking” 
             <br>(Optional: + “use the following criteria: strategic impact, feasibility, and speed to value; score confidence on every claim”).</mark></p></li>
         <li><p><strong>Technique: </strong>
-            <br>Learn which LLM (ChatGPT, Google Gemini, Claude - each model has different training biases) works best as a Critic/ Editor or as Actor/ Solution Generator – for executive-ready recommendations. 
+            <br>Learn which LLM (ChatGPT, Google Gemini, Claude - each model has different training biases/ priors: OpenAI models → instruction adherence, structured reasoning; Anthropic models → caution, interpretability, nuance; Google models → retrieval grounding, breadth) works best as a Critic/ Editor or as Actor/ Solution Generator – for executive-ready recommendations. 
             <br>Use disagreement between models as a signal!</p></li>
     </ul>
     <p><strong>Alternative: </strong>Chain of Density – if it converges to something meaningful</p>

@@ -149,6 +149,168 @@
             <br>Fragility Triage 
             <br>- By rating assumption fragility (High/Med/Low), it provides a clear triage signal for PMs to prioritise their attention toward the most brittle parts of the strategy.</p></li>
     </ul>
+
+    <div style="background-color: #e6f5d0; border: 3px solid #276419; padding: 2px 12px;">
+        <h3>How to Evaluate Outputs (Simple Rubrics That Actually Work)</h3>
+        <p>These prompts are only useful if you can <strong>consistently judge the quality of the output.</strong> Avoid binary “good/bad” thinking. Use a 1–5 scale with defined failure modes.</p>
+        <p>Each prompt has a primary evaluation metric. If you don’t enforce it, the prompt degrades.</p>
+        <p>You are not scoring style - you are scoring decision usefulness.</p>
+        <h4>Foundation Check: Grounding (Hallucinated Logic)</h4>
+        <p><strong>Rule:</strong></p>
+        <p>If the model introduces constraints, facts, or blockers not present in the input and does not label them as assumptions, → cap the score at 2</p>
+        <p><strong>Allow:</strong></p>
+        <ul>
+          <li><p>“Assuming budget is fixed…”</p></li>
+          <li><p>“If stakeholder alignment is weak…”</p></li>
+        </ul>
+        <p><strong>Fail:</strong></p>
+        <ul>
+          <li><p>“Given regulatory constraints…” <em>(not provided)</em></p></li>
+          <li><p>“Because the system cannot scale…” <em>(not evidenced)</em></p></li>
+        </ul>        
+
+        <ol>
+          <li><h4>Objective Validity Test</h4></li>
+          <p><strong>What you are checking:</strong> Did the model genuinely challenge whether the project should exist?</p>
+          <p><strong>Rubric (1–5):</strong></p>
+          <p><strong>5 - Board-level challenge</strong></p>
+          <ul>
+            <li><p>Identifies at least one hidden assumption (e.g. “market demand is assumed, not evidenced”)</p></li>
+            <li><p>Clearly separates real problem vs perceived problem</p></li>
+            <li><p>Defines a specific “kill condition” (e.g. “If adoption &lt;15% after 3 months, project is irrational”) - Does the output identify the Leading vs. Lagging indicators for that kill condition?</p></li>
+          </ul>
+          <p><strong>3 - Partial interrogation</strong></p>
+          <ul>
+            <li><p>Covers the five perspectives but stays descriptive</p></li>
+            <li><p>“Against” argument is weak or generic</p></li>
+            <li><p>No clear threshold for cancellation</p></li>
+          </ul>
+          <p><strong>1 - Superficial validation</strong></p>
+          <ul>
+            <li><p>Accepts the premise</p></li>
+            <li><p>Provides generic pros/cons</p></li>
+            <li><p>No meaningful challenge to existence</p></li>
+          </ul>
+
+          <li><h4>Pre-Mortem Architect</h4></li>
+          <p><strong>What you are checking:</strong> Are the failure scenarios specific and detectable early?</p>
+          <p><strong>Rubric (1–5):</strong></p>
+          <p><strong>5 - Actionable failure design</strong></p>
+          <ul>
+            <li><p>Three distinct root causes (technical / organisational / external)</p></li>
+            <li><p>Each includes a weeks 1–4 leading indicator, e.g. “Sprint velocity drops by 30% in first 2 sprints”</p></li>
+            <li><p>Explicitly links failure to a blinding assumption</p></li>
+          </ul>
+          <p><strong>3 - Plausible but vague</strong></p>
+          <ul>
+            <li><p>Failure scenarios are realistic but overlap</p></li>
+            <li><p>Early signals are generic (“team struggles”, “delays appear”)</p></li>
+          </ul>
+          <p><strong>1 - Narrative hindsight</strong></p>
+          <ul>
+            <li><p>Reads like a post-mortem story</p></li>
+            <li><p>No early warning signals</p></li>
+            <li><p>No link to original assumptions</p></li>
+          </ul>
+
+          <li><h4>Red Team Brief</h4></li>
+          <p><strong>What you are checking:</strong> Did the model genuinely try to defeat the plan? In other words, Primary Metric: Adversarial Integrity → Did the model remain purely critical, or did it drift into solution mode?</p>
+          <p><strong>Rubric (1–5):</strong></p>
+          <p><strong>5 - Full adversarial integrity</strong></p>
+          <ul>
+            <li><p>No solutions offered (constraint respected)</p></li>
+            <li><p>Objections attack core strategic logic</p></li>
+            <li><p>Data gaps undermine decision confidence, not just completeness</p></li>
+            <li><p>“Worse than doing nothing” scenario is credible</p></li>
+            <li><p>Final question is board-level unanswerable</p></li>
+          </ul>
+          <p><strong>3 - Partial drift</strong></p>
+          <ul>
+            <li><p>Strong critique, but includes soft suggestions or “fixes”</p></li>
+            <li><p>Some objections are surface-level</p></li>
+            <li><p>Final question is answerable with preparation</p></li>
+          </ul>
+          <p><strong>1 - Constraint failure</strong></p>
+          <ul>
+            <li><p>Slips into solution mode</p></li>
+            <li><p>Critique is diluted or polite</p></li>
+            <li><p>No real pressure on the plan</p></li>
+          </ul>
+
+          <li><h4>Assumption Audit</h4></li>
+          <p><strong>What you are checking:</strong> Did it expose what the plan is quietly relying on? In other words, Primary Metric: Epistemic Honesty → Did the model distinguish facts from assumptions?</p>
+          <p><strong>Rubric (1–5):</strong></p>
+          <p><strong>5 - High epistemic clarity</strong></p>
+          <ul>
+            <li><p>Identifies load-bearing assumptions across categories</p></li>
+            <li><p>Explicitly flags assumptions treated as facts</p></li>
+            <li><p>Fragility ratings are justified (not arbitrary)</p></li>
+            <li><p>Rewritten objective reflects uncertainty, e.g. “Test whether X is viable” vs “Deliver X”</p></li>
+          </ul>
+          <p><strong>3 - Partial honesty</strong></p>
+          <ul>
+            <li><p>Lists assumptions but lacks prioritisation</p></li>
+            <li><p>Fragility ratings are weak or generic</p></li>
+            <li><p>Rewrite improves wording, not truthfulness</p></li>
+          </ul>
+          <p><strong>1 - Epistemic failure</strong></p>
+          <ul>
+            <li><p>Accepts objective at face value</p></li>
+            <li><p>Misses key assumptions</p></li>
+            <li><p>No distinction between known vs assumed</p></li>
+          </ul>
+        </ol>
+        <h3>Cross-Cutting Tool: Writer–Editor (Evaluation Layer)</h3>
+        <p>Use <a href="prompts.html#wred">Writer–Editor</a> when:</p>
+        <ul>
+          <li><p>You have multiple outputs (or multiple model responses)</p></li>
+          <li><p>You need forced prioritisation without hedging</p></li>
+        </ul>
+        <h4>Prompt (adapted for rubric use):</h4>
+        <p>“Act as a Business Consultant. Rank these outputs from best to worst based on:</p>
+        <ul>
+          <li><p>adherence to the defined rubric</p></li>
+          <li><p>decision usefulness</p></li>
+          <li><p>internal consistency</p></li>
+        </ul>
+        <p>No hedging. If two outputs are not meaningfully distinguishable, mark them as ‘non-separable’ rather than forcing a ranking. Score confidence in your ranking (1–5) and explain the limiting uncertainty.”</p>
+        <h4>How to Use It (Practical)</h4>
+        <p>Run 2–3 model outputs (or variations)</p>
+        <p>Apply the rubric (e.g. Adversarial Integrity)</p>
+        <p>Then use Writer–Editor to:</p>
+        <ul>
+          <li><p>rank outputs</p></li>
+          <li><p>expose weak reasoning</p></li>
+          <li><p>detect false precision</p></li>
+        </ul>
+        <h4>Disagreement = Signal (Use It Correctly)</h4>
+        <p>If outputs rank differently or are “non-separable”:</p>
+        <ul>
+          <li><p>Ambiguity in inputs → run Assumption Audit</p></li>
+          <li><p>Different model priors → compare reasoning, not conclusions</p></li>
+          <li><p>Weak rubric enforcement → tighten criteria</p></li>
+        </ul>
+        <p>Do not average answers. Resolve the cause.</p>
+        <h4>Final Constraint (Non-Negotiable)</h4>
+        <p>A high rubric score means: → “good relative to intent”</p>
+        <p>It does <strong>not</strong> mean: → “correct in reality”</p>
+        <p><strong>Human expert judgement remains the final gate.</strong></p>
+        <p>No rubric or model can validate real-world fit without it.</p>
+    </div>
+    <br>
+    <div style="background-color: #e6f5d0; border: 3px solid #276419; padding: 2px 12px;">
+      <h3>Practical Guidance (Don’t Skip This)</h3>
+      <ul>
+        <li><p><strong>Run these rubrics sparingly</strong> (e.g. monthly, post-failure, or pre-major decision). This is quality assurance, not daily workflow</p></li>
+        <li><p><strong>Do not rely on the model to self-certify reality.</strong> A high score ≠ real-world validity. These tools expose weaknesses; they do not replace domain expertise.</p></li>
+      </ul>
+      <h3>What “Good” Looks Like (Quick Example)</h3>
+      <p><strong>Weak output:</strong></p>
+      <p>“Market demand may be uncertain; consider validating with users.”</p>
+      <p><strong>Strong output:</strong></p>
+      <p>“The plan assumes repeat usage without evidence. If retention is below 20% after 6 weeks, projected ROI collapses - making the project irrational.”</p>
+      <p>→ That’s the difference between analysis and decision support</p>
+    </div>
     
     <p><a href="#top">Jump to the Top</a></p>
   </main>
