@@ -165,12 +165,53 @@ Most RAG failures are not generation failures—they are <strong>retrieval failu
   <li>Chunking strategy (too large = dilution; too small = fragmentation)</li>
   <li>Embedding model quality</li>
   <li>Retrieval ranking and filtering</li>
+  <li>
+    Retrieval type:
+    <ul>
+      <li><strong>Sparse (BM25) </strong>→ exact match, keyword-heavy domains (legal, logs)</li>
+      <li><strong>Dense (embeddings) </strong>→ semantic search, natural language queries</li>
+      <li><strong>Hybrid </strong>→ default for most production systems</li>
+    </ul>
+    If queries are ambiguous → dense; if terminology is strict → sparse; if both → hybrid
+  </li>
+  <li>Re-ranking (second-stage retrieval):
+    <ul>
+      <li>Retrieve top-K broadly → re-rank with a cross-encoder for precision</li>
+      <li>Highest impact when initial retrieval is noisy or over-inclusive</li>
+    </ul>
+    First retrieve for recall, then re-rank for precision
+  </li>
 </ul>
 
 <p>
 A bad retrieval result is often worse than no context—the model will reason confidently from incorrect premises.
 </p>
 
+<p>This creates <strong>Context Failure:</strong> the system does not fail at generation, but at information selection. The model behaves correctly, but the retrieved evidence is incomplete, irrelevant, or misleading—resulting in logically sound but decision-poor outputs.</p>
+
+<p><strong>Context Window Constraint:</strong></p>
+<ul>
+  <li>Context window is a hard limit:
+    <ul>
+      <li>Too many chunks → signal dilution</li>
+      <li>Too few → missing context</li>
+    </ul>
+  </li>
+  <li>Optimise for relevance, not volume</li>  
+</ul>
+<p>More context ≠ better performance</p>
+
+<p><strong>Validation & Evals (RAG):</strong></p>
+<ul>
+  <li>Retrieval quality: Recall@K (is the right doc retrieved?)</li>
+  <li>Generation quality:
+    <ul>
+      <li>Faithfulness (is answer grounded in retrieved context?)</li>
+      <li>Answer relevance (does it actually answer the query?)</li>
+    </ul>
+  </li>
+  <li>Failure test: Inject bad retrieval → system should degrade or abstain, not hallucinate</li>
+</ul>
 ---
 
 <h2>3. Fine-Tuning = Behaviour Shaping</h2>
@@ -211,7 +252,13 @@ Fine-tuning creates consistency, not awareness. It is a <strong>snapshot</strong
   <li><strong>Prompt Engineering (Baseline):</strong> System prompts + few-shot examples. Fast, cheap, often sufficient.</li>
   <li><strong>RAG (Knowledge Layer):</strong> Add when the model lacks factual grounding or access to proprietary data.</li>
   <li><strong>Fine-Tuning (Behaviour Layer):</strong> Use only when format, tone, or reasoning cannot be stabilised via prompting.</li>
-  <li><strong>RAG + Fine-Tuning:</strong> Reserved for mature, high-value systems.</li>
+  <li><strong>RAG + Fine-Tuning:</strong> Reserved for mature, high-value systems:
+    <ul>
+      <li>RAG supplies knowledge; fine-tuning stabilises how that knowledge is used</li>
+      <li>Sequence: RAG first → fine-tune only if behaviour remains unstable</li>
+      <li>Use when: high-value workflows require both factual grounding and strict output control</li>
+    </ul>
+  </li>
 </ol>
 
 <div class="highlight">
@@ -233,6 +280,13 @@ Teams fine-tune too early, when a well-designed RAG pipeline would have solved t
 <ul>
   <li>Use smaller fine-tuned models (e.g. ~8B) for structured tasks</li>
   <li>Use larger models for reasoning over RAG context</li>
+  <li>Route by task type:
+    <ul>
+      <li>Deterministic / structured (classification, extraction, JSON) → small fine-tuned model</li>
+      <li>Ambiguous / multi-step reasoning over context → larger model + RAG</li>
+    </ul>
+  </li>
+  <li>Route based on uncertainty and structure, not model preference</li>
 </ul>
 
 ---
@@ -240,11 +294,24 @@ Teams fine-tune too early, when a well-designed RAG pipeline would have solved t
 <h2>6. Operational Heuristics</h2>
 
 <ul>
-  <li><strong>RAG for Facts, Fine-Tuning for Form</strong></li>
-  <li><strong>Invest in Retrieval:</strong> 80% of RAG success is upstream</li>
-  <li><strong>Handle “No Answer” Gracefully:</strong> Absence of data should trigger escalation, not hallucination (see <a href="what-to-use1.html#stage-2-hotl">The Delivery Maturity Lifecycle: Stage 2: HOTL (Controlled Scaling)</a>)</li>
-  <li><strong>Complexity is a Liability:</strong> Every fine-tuned model adds maintenance overhead</li>
+  <li><strong>RAG for Facts, Fine-Tuning for Form</strong> Use RAG to supply missing knowledge; use fine-tuning to stabilise behaviour and output structure</li>
+  <li><strong>Invest in Retrieval:</strong> 80% of RAG success is upstream. Focus on chunking, indexing, and ranking quality—generation quality is bounded by input quality</li>
+  <li><strong>Handle “No Answer” Gracefully:</strong> Absence of data should trigger escalation, not hallucination (see <a href="what-to-use1.html#stage-2-hotl">The Delivery Maturity Lifecycle: Stage 2: HOTL (Controlled Scaling)</a>). Failing safely is preferable to confidently producing unsupported outputs</li>
+  <li><strong>Complexity is a Liability:</strong> Every fine-tuned model adds maintenance, evaluation overhead, and risk of regression. Prefer simpler systems where possible</li>
 </ul>
+<h4>The Risk Profile Pivot</h4>
+<ul>
+  <li><strong>Fine-Tuning Risk → Execution Failure: </strong>The model produces incorrect, inconsistent, or poorly structured outputs</li>
+  <li><strong>RAG Risk → Context Failure: </strong>The model behaves correctly, but the retrieval layer provides incomplete or misleading context—resulting in degraded decision quality</li>
+</ul>
+<p><strong>Heuristic:</strong></p>
+<p>If the cost of a misinformed decision exceeds the cost of a badly formatted or inconsistent response, prioritise retrieval quality over model optimisation</p>
+
+<p><strong>Where this fits in the <a - href="what-to-use1.html#2">Maturity Lifecycle</a></strong></p>
+<p>RAG is the default knowledge layer from Stage 1 onward due to its auditability and reversibility.
+Fine-tuning becomes viable at Stage 3, once behaviour and evaluation baselines are stable.
+The hybrid pattern (RAG + fine-tuning) is a Stage 3–4 decision, when both knowledge grounding and behavioural consistency are required</p>
+
 <div style="text-align: right; margin-bottom: 20px;">
     <a href="project-management.html" style="text-decoration: none; color: #1f78b4; font-family: sans-serif; font-size: 14px; font-weight: 500;">
         &larr; Home
@@ -259,7 +326,8 @@ If it fails on format or reasoning → it needs <strong>training (fine-tuning)</
 
 <div class="highlight">
 <strong>The Golden Rule:</strong><br>
-Context beats intelligence. A model with the right data at the right time will outperform a smarter model with the wrong information.
+Context beats intelligence. A model with the right data at the right time will outperform a more capable model operating on incomplete or incorrect information. <br>
+In practice, most system failures are not due to weak reasoning, but due to poor context.
 </div>
 
 </body>

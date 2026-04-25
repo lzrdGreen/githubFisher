@@ -150,6 +150,7 @@ active executor to strategic auditor as deterministic safeguards and evaluation 
 
 <div class="highlight">
 <strong>Selection Heuristic:</strong>
+<p><strong>Conflict rule: </strong>when criteria overlap, default to the more conservative pattern (Agentic → Linear → HITL)</p>
 <ul>
   <li>If inputs and steps are known → <strong>Linear Automation</strong></li>
   <li>If the goal is known but steps vary → <strong>Agentic (bounded)</strong></li>
@@ -161,12 +162,13 @@ active executor to strategic auditor as deterministic safeguards and evaluation 
 <p><strong>Step 2 — Linear Automation: your first ROI. </strong>Repeatable patterns get "frozen" into deterministic logic. A rule-based safeguard wraps the probabilistic LLM output and catches anything outside expected bounds. Anything too complex routes back to HITL</p>
 <p><strong>Step 3 — Agentic Workflows: replace the human. </strong>Only once monitoring is mature enough to catch drift do you promote a process here. The guardrails from Step 2 become the safety net that makes Step 3 trustworthy.</p>
 <p>The progression isn't just about ROI — it's about trust. You don't skip steps because you can't fake the data each one produces</p>
+<p>When in doubt, downgrade one level</p>
 </div>
 
 </div>
 
 <div class="section">
-<h2>2. The Delivery Maturity Lifecycle: MVP to Scale</h2>
+<h2 id="2">2. The Delivery Maturity Lifecycle: MVP to Scale</h2>
 
 <p>Autonomy must be earned through a structured transition of control.</p>
 
@@ -205,8 +207,13 @@ Humans shift to failure analysis and policy refinement.
 <ul>
   <li>Focus on decision traces and anomaly monitoring</li>
   <li>Observability becomes the primary interface</li>
+  <li>Define failure classes (systematic vs edge-case vs drift)</li>
+  <li>Set regression triggers (confidence drop, anomaly rate ↑, schema breakage)</li>
+  <li>Route failures → Stage 1 (HITL) for re-baselining</li>
+  <li>“Done” = stable error distribution + no silent failures</li>
 </ul>
-
+<p>Progression is not one-directional</p>
+<p>Drift, domain shift, or model change → trigger regression to HITL or HOTL until baselines are re-established</p>
 </div>
 
 <div class="section">
@@ -217,6 +224,7 @@ Humans shift to failure analysis and policy refinement.
 <ul>
   <li><strong>Control Plane (Linear Orchestration):</strong> Workflow engine manages state transitions, logging, and access control</li>
   <li><strong>Modular LLM Components:</strong> Prompt-bounded steps with structured outputs (JSON); no free-form execution authority</li>
+  <li>See <a href="what-to-use2.html">RAG vs Fine-Tuning</a> for when to use retrieval (knowledge) vs behaviour shaping within this architecture</li>
   <li><strong>Sandboxed Agentic Modules:</strong> Used only for high-complexity tasks; governed by step and budget limits</li>
   <li><strong>Observability Layer:</strong> Logging of prompt/response pairs, decision traces, and confidence scores (non-negotiable)</li>
 </ul>
@@ -261,7 +269,14 @@ You are no longer trusting an output—you are trusting a <strong>selection proc
 </p>
 
 <ul>
-  <li><strong>N is a tuning parameter</strong> (cost × latency × risk)</li>
+  <li><strong>N is a tuning parameter</strong> (cost × latency × risk)
+    <ul>
+      <li>N=3 → low-cost sanity check</li>
+      <li>N=5–7 → meaningful reliability gain (consensus usable)</li>
+      <li>N>7 → diminishing returns unless high-risk domain</li>
+      <li>Increase N with error cost, not with task complexity</li>
+    </ul>
+  </li>
   <li><strong>Early (HITL):</strong> apply broadly, keep N small (3–7), log all candidates</li>
   <li><strong>Mature stages:</strong> apply selectively; retain top 2–3 only</li>
 </ul>
@@ -487,6 +502,8 @@ to:
   <li>Insert <strong>intermediate validation checkpoints</strong></li>
   <li>Continuously <strong>re-evaluate state</strong></li>
   <li>Enable <strong>rollback and alternative path selection</strong></li>
+  <li>Rollback = revert to last validated state, not full restart</li>
+  <li>External side-effects must be <strong>idempotent or staged</strong> (no irreversible writes before validation). If you can’t safely rollback, you shouldn’t grant autonomy</li>
 </ul>
 
 <p>
