@@ -441,6 +441,107 @@ You build an architecture in which <strong>only reliable reasoning paths survive
 
 </div>
 
+<!-- START OF CASE STUDY SECTION -->
+<div style="border: 4px solid #1f78b4; padding: 20px; margin: 30px auto; width: 80%; background-color: #ffffff; box-sizing: border-box;">
+
+  <h2 id="case-study">Case Study: Inference-Time Verification for LLM Reliability</h2>
+  <div class="subtitle">Exploring how deterministic controls and inference-time verification can improve reliability in probabilistic AI systems.</div>
+  <p style="margin-top: -10px; margin-bottom: 20px;">
+    <strong>Case Study Resource:</strong> <a href="https://github.com/lzrdGreen/llm-reliability-case-study/blob/main/llm_reliability_case_study.ipynb" target="_blank" style="color: #1f78b4; text-decoration: underline;">View Jupyter Notebook</a>
+  </p>
+
+  <hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
+
+  <h3>The Core Challenge</h3>
+  <p>
+    Large Language Models generate probabilistic outputs that cannot always be trusted in operational environments. The core engineering challenge explored was:
+  </p>
+  <p class="highlight">
+    <strong>How can LLM systems introduce controls that improve reliability without modifying the underlying model itself?</strong>
+  </p>
+
+  <h3>System Approach</h3>
+  <p>The experiment implemented an inference-time verification pipeline incorporating:</p>
+  <ul>
+    <li><strong>Multi-sample response generation:</strong> Generating multiple candidate outputs rather than relying on a single forward pass.</li>
+    <li><strong>Cross-candidate semantic evaluation:</strong> Comparing candidate responses to identify stronger and weaker reasoning paths.</li>
+    <li><strong>Consensus estimation:</strong> Measuring agreement across generated candidates as a proxy for stability.</li>
+    <li><strong>Contradiction detection:</strong> Identifying conflicting claims between candidate outputs.</li>
+    <li><strong>Dynamic uncertainty scoring:</strong> Quantifying generation instability to estimate operational risk.</li>
+    <li><strong>Ground-truth validation:</strong> Cross-examining final candidate texts against a static registry of known facts.</li>
+    <li><strong>Human-in-the-loop escalation:</strong> Routing highly volatile or unstable generations out of the pipeline for manual review.</li>
+  </ul>
+
+  <h3>The Reliability Framework Pipeline</h3>
+  <div style="font-family: monospace; font-size: 0.95em; line-height: 1.6; background-color: #f7fbff; border: 1px solid #ccc; padding: 15px; border-radius: 4px; margin: 15px 0; text-align: center; color: #222;">
+    <strong>Generate candidate responses</strong>
+    <br>↓<br>
+    <strong>Evaluate response quality</strong>
+    <br>↓<br>
+    <strong>Measure semantic disagreement</strong>
+    <br>↓<br>
+    <strong>Apply deterministic validation controls</strong>
+    <br>↓<br>
+    <strong>Validate against ground truth</strong>
+    <br>↓<br>
+    <strong>Escalate uncertainty to human review</strong>
+  </div>
+
+  <h3>Empirical Observations &amp; Key Insight</h3>
+  <p>The experiment did not eliminate hallucinations. Instead, it demonstrated that:</p>
+  <div class="highlight">
+    <strong>Reliability emerged from the selection and verification processes surrounding the model rather than from trusting a single generated output.</strong>
+  </div>
+  <p>
+    Operational AI systems should treat model outputs as <strong>probabilistic proposals operating within controlled decision frameworks</strong>, rather than autonomous, standalone decisions.
+  </p>
+
+  <h3>Implications for AI Delivery</h3>
+  <p>The exercise reinforced several core principles relevant to enterprise AI adoption:</p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 30%;">Core Principle</th>
+        <th>Operational Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Architectural Property</strong></td>
+        <td>Reliability is improved through verification architecture rather than relying solely on model capability.</td>
+      </tr>
+      <tr>
+        <td><strong>Measured Uncertainty</strong></td>
+        <td>System stability and cohort drift should be tracked quantitatively rather than ignored.</td>
+      </tr>
+      <tr>
+        <td><strong>Human Oversight</strong></td>
+        <td>Manual fallback escalations remain an absolute requirement for high-risk, high-volatility scenarios.</td>
+      </tr>
+      <tr>
+        <td><strong>Earned Trust</strong></td>
+        <td>System transparency and deterministic boundary controls are what validate AI utility in operations.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Reliability Mechanisms Explored</h3>
+  <ul>
+    <li>Local LLM inference orchestration</li>
+    <li>Multi-branch candidate evaluation architectures</li>
+    <li>Semantic similarity vector scoring</li>
+    <li>Contradiction detection logic</li>
+    <li>Rule-based factual validation engines</li>
+    <li>Human escalation routing workflows</li>
+  </ul>
+
+  <p>
+    <strong>Outcome:</strong> A working prototype demonstrating how architectural controls, verification mechanisms, and human oversight can improve operational reliability in LLM systems.
+  </p>
+
+</div>
+<!-- END OF CASE STUDY SECTION -->
+
 <div class="highlight">
 <p id="aside3"><strong>Aside 3: From Reasoning to Systems — Making It Work in Practice</strong></p>
 
