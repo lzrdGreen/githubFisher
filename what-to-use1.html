@@ -446,9 +446,11 @@ You build an architecture in which <strong>only reliable reasoning paths survive
 
   <h2 id="case-study">Case Study: Inference-Time Verification for LLM Reliability</h2>
   <div class="subtitle">Exploring how deterministic controls and inference-time verification can improve reliability in probabilistic AI systems.</div>
+  
   <p style="margin-top: -10px; margin-bottom: 20px;">
-    <strong>Case Study Resource:</strong> <a href="https://github.com/lzrdGreen/llm-reliability-case-study/blob/main/llm_reliability_case_study.ipynb" target="_blank" style="color: #1f78b4; text-decoration: underline;">View Jupyter Notebook</a>
-  </p>
+    <strong>Case Study Resource:</strong> <a href="https://github.com/lzrdGreen/llm-reliability-case-study/blob/main/qwen3_5_0_8b_factual_audit_system.ipynb" target="_blank" style="color: #1f78b4; text-decoration: underline;">View Jupyter Notebook</a>
+  <br>
+  <em>(Designed, architected, and reviewed by me; fully coded by AI under my direction)</em></p>
 
   <hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
 
@@ -468,7 +470,7 @@ You build an architecture in which <strong>only reliable reasoning paths survive
     <li><strong>Consensus estimation:</strong> Measuring agreement across generated candidates as a proxy for stability.</li>
     <li><strong>Contradiction detection:</strong> Identifying conflicting claims between candidate outputs.</li>
     <li><strong>Dynamic uncertainty scoring:</strong> Quantifying generation instability to estimate operational risk.</li>
-    <li><strong>Ground-truth validation:</strong> Cross-examining final candidate texts against a static registry of known facts.</li>
+    <li><strong>Ground-truth validation:</strong> Cross-examining final candidate texts against a static registry of known facts (using DeBERTa-v3 NLI and spaCy structural graphs).</li>
     <li><strong>Human-in-the-loop escalation:</strong> Routing highly volatile or unstable generations out of the pipeline for manual review.</li>
   </ul>
 
@@ -531,7 +533,7 @@ You build an architecture in which <strong>only reliable reasoning paths survive
     <li>Multi-branch candidate evaluation architectures</li>
     <li>Semantic similarity vector scoring</li>
     <li>Contradiction detection logic</li>
-    <li>Rule-based factual validation engines</li>
+    <li>NLI-driven semantic validation engines</li>
     <li>Human escalation routing workflows</li>
   </ul>
 
